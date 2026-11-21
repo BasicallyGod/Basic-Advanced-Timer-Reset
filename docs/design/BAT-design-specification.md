@@ -1,6 +1,6 @@
 # Basic’s Advanced Timer Design Specification
 
-**Version 1.14 · 21 November 2026 · Working specification**
+**Version 1.15 · 21 November 2026 · Working specification**
 
 BAT combines dependable time recording and timesheet review with a capable, searchable notes library. Accounts and reminders connect those workflows. Each workspace must remain useful independently, and the shared working-day timeline must keep recorded work and outstanding reminders understandable together.
 
@@ -389,5 +389,6 @@ These references inform navigation, search and writing patterns. Their full feat
 | 1.12 | 21 November 2026 | Established the user-selected public reset repository, pinned Alpha/stable and Core/Storage 0.10.1 source provenance, and made the selected prototype sources and design references portable. Native feasibility and reuse decisions remain open under O13. |
 | 1.13 | 21 November 2026 | Added the runnable native Notes feasibility experiment and its evidence. Recorded passed capture/persistence/timing checks and remaining accessibility, clipboard/source and native scaling gates. Production stack and schema decisions remain open. |
 | 1.14 | 21 November 2026 | Recorded the native keyboard-focus fix, verified link Apply/Cancel and F6/Tab navigation, and supporting editor-selection regression. Accessibility and broader native feasibility gates remain open; experiment shortcuts do not settle O11. |
+| 1.15 | 21 November 2026 | Recorded native compact-window checks at actual 125% DPI, responsive link fields, explicit editor semantics and the offscreen accessibility/rendering comparison. Physical 1080p, mixed-DPI and assistive-technology gates remain open. |
 
 For future changes, update the affected requirement and its status, resolve or add the relevant open decision, revise the affected validation scenario and add a brief revision entry. If a prototype temporarily diverges, label the experiment and its intended test rather than silently changing the governing rule.

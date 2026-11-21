@@ -31,6 +31,8 @@ The executable is `Bat.Reset.NotesExperiment`. It never opens the installed app'
 
 F6 moves from writing to the note title and back to writing from the native controls. Tab/Shift+Tab move through those controls. Clicking a source link or pressing Ctrl+K opens link fields with keyboard focus in the address; Enter applies and Escape cancels. These are experiment bindings, not final O11 shortcut choices. See the focus regression results in the feasibility report.
 
+F9 cycles native widths (940/600/420). The local `layout-diagnostics.json` records actual DPI and screen/window dimensions without note content. The optional `--offscreen` launch flag supports the rendering comparison; it remains disabled by default. See [accessibility and scaling results](../../docs/experiments/accessibility-and-scaling.md) before using that mode.
+
 Copy text currently copies Markdown. Plain text is a fallback editor for comparison; switching between source and rendered editing resets the editor's undo history. Full rich/plain comparison, clean Word copying and production export remain open under O07.
 
 ## Verification and limits

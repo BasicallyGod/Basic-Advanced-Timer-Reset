@@ -7,10 +7,12 @@ namespace Bat.Reset.NotesExperiment;
 internal static class Program
 {
     public static string DataPath { get; private set; } = "";
+    public static bool Offscreen { get; private set; }
 
     [STAThread]
     public static void Main(string[] args)
     {
+        Offscreen=args.Contains("--offscreen");
         // A separate identity and data root: this experiment never opens timer.db.
         var dataArg = Array.IndexOf(args, "--data-dir");
         DataPath = Path.GetFullPath(dataArg >= 0 && args.Length > dataArg + 1

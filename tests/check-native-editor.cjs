@@ -12,6 +12,7 @@ const root=path.resolve(__dirname,'..');
     for(const file of ['prototypes/vendor/toastui-editor-3.2.2.min.js','prototypes/src/editor-rules.js','experiments/native-notes/Editor/editor.js'])await page.addScriptTag({path:path.join(root,file)});
     const initial='## Client call\n\n> A launch people can join.\n\n- Confirm neighbourhood champions.\n- Chase approval Thursday.\n\n[Campaign research](https://example.com/research)';
     await page.evaluate(body=>bat.open({id:'note-a',body}),initial);
+    assert.equal(await page.getByRole('textbox',{name:'Markdown note body'}).getAttribute('aria-multiline'),'true');
     assert.equal(await page.locator('.toastui-editor-ww-container h2').textContent(),'Client call');
     await page.locator('.toastui-editor-ww-container li').first().click();await page.keyboard.press('End');await page.keyboard.insertText(' for Beacon.');
     assert((await page.evaluate(()=>bat.snapshot().body)).includes('champions. for Beacon.'));

@@ -2,12 +2,19 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-21",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.14",
+  "specificationVersion": "1.15",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "native-accessibility-and-scaling-check",
+      "status": "partial_feasibility_evidence_host_gate_open",
+      "report": "docs/experiments/accessibility-and-scaling.md",
+      "evidence": "Native 600/420 widths checked at RenderScaling 1.25. Link address stacks at narrow widths. Offscreen mode exposed native document semantics but remained visually blank; default painted correctly but inspection remained unreliable.",
+      "remaining": "Assistive-technology validation, physical 1080p and mixed-DPI movement. No final host choice or system display setting change."
+    },
     {
       "id": "native-notes-keyboard-focus-boundary",
       "status": "verified_experiment_fix",

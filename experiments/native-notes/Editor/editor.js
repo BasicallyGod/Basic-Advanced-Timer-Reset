@@ -17,7 +17,9 @@ window.bat = {
     activeEditorId=note.id; revision=note.revision||0;linkSelection=null;restoredSelection=null;
     const entry={view:null};instances.set(activeEditorId,entry);
     editor=new toastui.Editor({el:document.getElementById('editor'),initialValue:note.body,initialEditType:'wysiwyg',height:'auto',minHeight:'280px',hideModeSwitch:true,toolbarItems:[],usageStatistics:false,autofocus:false,plugins:[markdownRules],hooks:{addImageBlobHook:()=>false},events:{change(){if(loading)return;revision++;send({type:'changed',...snapshot()});}}});
-    document.querySelector('.toastui-editor-ww-container [contenteditable]')?.setAttribute('aria-label','Markdown note body');
+    const writing=document.querySelector('.toastui-editor-ww-container [contenteditable]');
+    writing?.setAttribute('aria-label','Markdown note body');
+    writing?.setAttribute('role','textbox');writing?.setAttribute('aria-multiline','true');
     loading=false;
     this.focus();
   },
@@ -51,6 +53,7 @@ document.addEventListener('paste',event=>{
   }
 },true);
 document.addEventListener('keydown',event=>{
+  if(event.key==='F9'){event.preventDefault();send({type:'compactWindow',id:activeEditorId});}
   if(event.key==='F6'){event.preventDefault();window.bat.remember();send({type:'focusShell',id:activeEditorId});}
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();window.bat.editLink();}
   if(event.key==='Escape'){event.preventDefault();send({type:'close',...snapshot()});}

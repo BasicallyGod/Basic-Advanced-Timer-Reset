@@ -46,7 +46,7 @@ Source evidence: [the pinned adapter's empty ResignFocus method](https://github.
 
 1. Resolve rendered-editor accessibility and complete keyboard traversal, clipboard and IME validation in Windows. The specific link-address focus failure is fixed and native Apply/Cancel checks pass. The browser regression remains supporting evidence only.
 2. Compare the rendered editor and native source/preview workflow with the same writing tasks. Switching to source currently resets rendered-editor undo history; decide whether that is acceptable for an optional fallback. Test pasted Markdown, pasted source links, mid-list edits and undo after leaving/reopening a note.
-3. Validate narrow native windows, 1080p at 125% scaling and movement across monitors at different scales. No OS display setting was changed during this slice. Browser widths do not close this gate.
+3. Native 600/420-pixel windows have now been checked at actual 125% scaling; see [the follow-up results](accessibility-and-scaling.md). Physical 1080p work-area limits and mixed-DPI movement remain unverified because only one higher-resolution display was exposed. Browser widths do not close those remaining checks.
 4. Exercise large notes, rapid repeated capture, editor/process failure and forced interruption during saving. The atomic store tests cover complete snapshot recovery, not every editor-to-host failure or production recovery policy.
 5. Choose document/link storage and migration only after O03/O06/O07 and accounting decisions are ready. The experiment's JSON store and fixed sample block cannot become the production schema by default.
 

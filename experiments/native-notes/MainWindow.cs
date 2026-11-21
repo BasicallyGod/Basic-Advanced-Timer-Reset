@@ -85,6 +85,18 @@ internal sealed class MainWindow : Window
         linkEditor.Children.Add(linkText);Grid.SetColumn(linkUrl,1);linkEditor.Children.Add(linkUrl);
         var applyLink=Action("Apply",()=>_=ApplyLink());Grid.SetColumn(applyLink,2);linkEditor.Children.Add(applyLink);
         var cancelLink=Action("Cancel",()=>{linkEditor.IsVisible=false;web.Focus();_=Run("bat.focus()");});Grid.SetColumn(cancelLink,3);linkEditor.Children.Add(cancelLink);
+        void LayoutLinkFields()
+        {
+            var narrow=Bounds.Width<560;
+            linkEditor.ColumnDefinitions=new ColumnDefinitions(narrow?"*,Auto,Auto":"*,2*,Auto,Auto");
+            linkEditor.RowDefinitions=new RowDefinitions(narrow?"Auto,Auto":"Auto");
+            linkEditor.RowSpacing=6;
+            Grid.SetRow(linkUrl,0);Grid.SetColumn(linkUrl,narrow?0:1);Grid.SetColumnSpan(linkUrl,narrow?3:1);
+            Grid.SetRow(linkText,narrow?1:0);
+            Grid.SetRow(applyLink,narrow?1:0);Grid.SetColumn(applyLink,narrow?1:2);
+            Grid.SetRow(cancelLink,narrow?1:0);Grid.SetColumn(cancelLink,narrow?2:3);
+        }
+        SizeChanged+=(_,_)=>LayoutLinkFields();
         var toolsPanel = new StackPanel { Spacing = 8 };toolsPanel.Children.Add(tools);toolsPanel.Children.Add(formatting);toolsPanel.Children.Add(linkEditor);Grid.SetRow(toolsPanel,1);editor.Children.Add(toolsPanel);
         var writing = new Grid();writing.Children.Add(web);writing.Children.Add(source);Grid.SetRow(writing,2);editor.Children.Add(writing);
         title.TextChanged += (_, _) => ScheduleSave(); account.TextChanged += (_, _) => ScheduleSave();source.TextChanged += (_, _) => ScheduleSave();
@@ -96,6 +108,7 @@ internal sealed class MainWindow : Window
             if(args.Source is Control control)focusBoundary.ReclaimFor(control);
         },RoutingStrategies.Bubble);
         AddHandler(InputElement.KeyDownEvent,(_,args)=>{
+            if(args.Key==Key.F9){args.Handled=true;Width=Width>700?600:Width>450?420:940;}
             if(args.Key==Key.F6&&selected is not null&&!source.IsVisible){args.Handled=true;web.Focus();_=Run("bat.focus()");}
         },RoutingStrategies.Bubble);
         linkEditor.KeyDown += (_,args)=>{
@@ -104,10 +117,14 @@ internal sealed class MainWindow : Window
         };
         AutomationProperties.SetName(title,"Note title");AutomationProperties.SetName(account,"Note account");AutomationProperties.SetName(source,"Plain Markdown note body");AutomationProperties.SetName(search,"Search notes");
         AutomationProperties.SetName(linkText,"Link text");AutomationProperties.SetName(linkUrl,"Link address");
+        AutomationProperties.SetName(web,"Note writing surface");
 
         web.EnvironmentRequested += (_, args) => {
             if (args is WindowsWebView2EnvironmentRequestedEventArgs windows)
+            {
                 windows.UserDataFolder = Path.Combine(Program.DataPath, "webview-profile");
+                windows.ExperimentalOffscreen=Program.Offscreen;
+            }
         };
         web.NavigationStarted += (_, args) => { if (args.Request is { } uri && uri.Scheme != "file" && uri.AbsoluteUri != "about:blank") args.Cancel = true; };
         web.NavigationCompleted += (_, args) => { if (!args.IsSuccess) saved.Text = "Editor could not load. Plain text remains available."; else _ = Receive("{\"type\":\"ready\"}"); };
@@ -159,6 +176,7 @@ internal sealed class MainWindow : Window
             using var doc = JsonDocument.Parse(message);var data = doc.RootElement;
             if(data.GetProperty("type").GetString() is "ready") { browserReady = true;if(selected is { } id) await LoadEditor(store.Data.Notes.Single(n=>n.Id==id));return; }
             if(!data.TryGetProperty("id",out var key)||!Guid.TryParse(key.GetString(),out var noteId)||selected!=noteId) return;
+            if(data.GetProperty("type").GetString()=="compactWindow"){Width=Width>700?600:Width>450?420:940;return;}
             if(data.GetProperty("type").GetString()=="focusShell"){title.Focus(NavigationMethod.Tab);return;}
             if(data.GetProperty("type").GetString()=="editLink")
             {
@@ -268,8 +286,23 @@ internal sealed class MainWindow : Window
     private void ToggleTimer() {if(clock.Active is null)clock.ToggleAccount("Acme");else clock.StopAccount();UpdateClock();}
     private void UpdateClock()
     {
+        WriteLayoutDiagnostics();
         timer.Text=clock.Active is null?"Timer paused":"Acme · "+clock.ActiveElapsed.ToString(@"hh\:mm\:ss");
         timerButton.Content=clock.Active is null?"Start timer":"Pause timer";
         reminder.Text=reminderDone?"Test reminder completed":DateTime.Now>=reminderAt?"● 1 due · Chase Acme approval":"Test reminder in "+Math.Max(0,(int)(reminderAt-DateTime.Now).TotalSeconds)+"s";
+    }
+    private string? lastLayout;
+    private void WriteLayoutDiagnostics()
+    {
+        if(!IsVisible)return;
+        var data=JsonSerializer.Serialize(new {
+            clientWidth=ClientSize.Width,clientHeight=ClientSize.Height,renderScaling=RenderScaling,
+            offscreen=Program.Offscreen,
+            editorWidth=web.Bounds.Width,editorHeight=web.Bounds.Height,
+            screens=Screens.All.Select(s=>new {width=s.Bounds.Width,height=s.Bounds.Height,scaling=s.Scaling,workingWidth=s.WorkingArea.Width,workingHeight=s.WorkingArea.Height})
+        },Json);
+        if(data==lastLayout)return;lastLayout=data;
+        try { File.WriteAllText(Path.Combine(Program.DataPath,"layout-diagnostics.json"),data); }
+        catch(Exception error) when(error is IOException or UnauthorizedAccessException) { /* Diagnostics must not interrupt writing. */ }
     }
 }
