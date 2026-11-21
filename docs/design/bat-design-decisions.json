@@ -2,12 +2,19 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-21",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.12",
+  "specificationVersion": "1.13",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "native-notes-first-feasibility-slice",
+      "status": "experiment_complete_with_remaining_gates",
+      "report": "docs/experiments/native-notes-feasibility.md",
+      "evidence": "Native capture from another app, autosave/reopening, formatting undo, body search and explicit work links observed. Nine executable recovery/identity/Core-clock checks and the embedded-editor component regression pass.",
+      "limits": "Rendered-editor accessibility, complete native clipboard/link/IME validation, scaling/mixed monitors and broader failure/performance checks remain open. Experiment versions, JSON format, sample block and Ctrl+Alt+N binding do not select production policy."
+    },
     {
       "id": "foundation-and-new-repository-review",
       "status": "repository_established_stack_and_reuse_open",

@@ -2,12 +2,13 @@
 
 A design-led reset of BAT: trusted timesheets, quick reminders and connected Markdown notes, in a compact desktop application.
 
-This repository is the reset's starting point. It contains the agreed product direction, source baseline and interactive browser experiments. The desktop application is the next stage; its UI/editor stack is awaiting a native feasibility check.
+This repository contains the agreed product direction, source baseline, interactive browser experiments and a first native Notes feasibility slice. The production desktop application and final UI/editor choice follow the remaining feasibility gates.
 
 - [Design specification](docs/design/BAT-design-specification.md): current requirements, accepted behaviour and open decisions.
 - [Foundation review](docs/design/BAT-foundation-review.md): what we can build on and what still needs evidence.
 - [Repository decision](docs/decisions/0001-foundation-and-repository.md) and [source baseline](docs/baselines/source-baseline.json).
 - [Interactive prototypes](prototypes/README.md): dashboard, time entry and Notes.
+- [Native Notes experiment](experiments/native-notes/README.md) and [feasibility findings](docs/experiments/native-notes-feasibility.md): a runnable Windows slice with persistent notes and the pinned Core clock.
 
 ## Run the references
 

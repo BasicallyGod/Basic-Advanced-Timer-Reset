@@ -1,0 +1,29 @@
+name: Native Notes experiment
+on:
+  push:
+    paths: ['experiments/**', 'tools/native-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
+  pull_request:
+    paths: ['experiments/**', 'tools/native-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
+permissions:
+  contents: read
+jobs:
+  native-build-and-storage:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Prepare pinned SDK and Core; restore and build
+        shell: pwsh
+        run: ./tools/native-notes.ps1 setup
+      - name: Run recovery, identity and Core timing checks
+        shell: pwsh
+        run: ./tools/native-notes.ps1 check
+  editor-component:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - run: npm install --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:native-editor

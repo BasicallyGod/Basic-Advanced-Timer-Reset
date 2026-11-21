@@ -38,6 +38,8 @@ Test one small native slice before committing the UI/editor stack: open a note f
 
 Include keyboard selection and undo, clipboard behaviour, focus restoration, multiple monitors and 1080p at 125 percent scaling. The HTML prototype demonstrates a writing interaction; its browser editor component does not decide the native editor integration. Compare alternative approaches if this slice exposes a material limitation.
 
+The [first native Notes experiment](../experiments/native-notes-feasibility.md) is now runnable. It establishes direct global capture, saved-note reopening, independent Core timing and atomic snapshot recovery checks. Hosted-editor accessibility, source/clipboard behaviour, native scale changes and failure handling remain gates. The experiment does not select the final stack or production document schema.
+
 ## New repository
 
 The user selected the public repository [BasicallyGod/Basic-Advanced-Timer-Reset](https://github.com/BasicallyGod/Basic-Advanced-Timer-Reset), created on 21 November 2026. Its foundation commit carries the design specification, original brief, foundation review, decision records and selected portable prototype sources. Keep the original application available as the behavioural reference.

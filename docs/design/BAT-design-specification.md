@@ -1,6 +1,6 @@
 # Basic’s Advanced Timer Design Specification
 
-**Version 1.12 · 21 November 2026 · Working specification**
+**Version 1.13 · 21 November 2026 · Working specification**
 
 BAT combines dependable time recording and timesheet review with a capable, searchable notes library. Accounts and reminders connect those workflows. Each workspace must remain useful independently, and the shared working-day timeline must keep recorded work and outstanding reminders understandable together.
 
@@ -344,6 +344,10 @@ Steps can inform one another. Dependencies in Section 13 govern when a tentative
 - [Earlier display plan covering seasonal decorations and reduced motion](https://github.com/BasicallyGod/Basic-Advanced-Timer/blob/c6d0a67fd3205e355255f9ddf1148f41596f662c/docs/design/eink-display-plan.md), historical design context for seasonal character rather than a commitment to reproduce that appearance.
 - User-supplied editor screenshots informed the discussion. They are not redistributed in this repository; the public interaction references below retain the source context.
 
+### Native feasibility evidence
+
+The first [native Notes slice](../experiments/native-notes-feasibility.md) tests direct capture, file-backed notes, explicit work links and the pinned Core clock. Its partial results inform O07/O13; it does not settle the stack, storage schema, shortcut choices or open product policies.
+
 ### Prototype references
 
 | Prototype | Use as a reference for | Qualification |
@@ -383,5 +387,6 @@ These references inform navigation, search and writing patterns. Their full feat
 | 1.10 | 21 November 2026 | Clarified reminders as lightweight action/account/time records, with substantial writing kept in linked Notes. Restored seasonal touches and Easter eggs to the reset direction, added O12 and validation scenarios, and clarified the distinction from broader theme exploration. |
 | 1.11 | 21 November 2026 | Added the initial Foundation and Repository Review and O13. Established source-baseline reconciliation, reuse assessment, native editor feasibility and new-repository preparation as work before the implementation plan. No final stack or remote repository has been created by this review. |
 | 1.12 | 21 November 2026 | Established the user-selected public reset repository, pinned Alpha/stable and Core/Storage 0.10.1 source provenance, and made the selected prototype sources and design references portable. Native feasibility and reuse decisions remain open under O13. |
+| 1.13 | 21 November 2026 | Added the runnable native Notes feasibility experiment and its evidence. Recorded passed capture/persistence/timing checks and remaining accessibility, clipboard/source and native scaling gates. Production stack and schema decisions remain open. |
 
 For future changes, update the affected requirement and its status, resolve or add the relevant open decision, revise the affected validation scenario and add a brief revision entry. If a prototype temporarily diverges, label the experiment and its intended test rather than silently changing the governing rule.
