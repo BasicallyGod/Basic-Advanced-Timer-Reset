@@ -2,12 +2,19 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-21",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.17",
+  "specificationVersion": "1.18",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "windows-production-frame-progress",
+      "status": "running_development_slice_w01_gates_open",
+      "report": "docs/experiments/windows-production-frame.md",
+      "evidence": "Independent direct capture, revision-acknowledged development persistence and Core recording now run in the complete responsive Windows frame. Application recovery checks and mocked-host UI checks pass; native typing/link/failure checks are recorded separately.",
+      "limits": "Fictional timeline examples never enter totals. Development snapshot/checkpoint recovery does not settle O01/O03/O07. Screen-reader, native CI, display/lifecycle and remaining W01 evidence still gate acceptance."
+    },
     {
       "id": "windows-first-implementation-plan",
       "status": "delivery_priority_confirmed_composition_proposed",

@@ -1,6 +1,7 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const {chromium}=require('playwright');
 const root=path.resolve(__dirname,'..');
+const editorDirectory=process.env.BAT_EDITOR_DIRECTORY||'experiments/native-notes/Editor';
 (async()=>{
   const browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
   try{
@@ -8,8 +9,8 @@ const root=path.resolve(__dirname,'..');
     page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()));
     await page.setContent('<div id="editor"></div>');
     await page.evaluate(()=>{window.messages=[];window.invokeCSharpAction=s=>messages.push(JSON.parse(s));});
-    await page.addStyleTag({path:path.join(root,'experiments/native-notes/Editor/editor.css')});
-    for(const file of ['prototypes/vendor/toastui-editor-3.2.2.min.js','prototypes/src/editor-rules.js','experiments/native-notes/Editor/editor.js'])await page.addScriptTag({path:path.join(root,file)});
+    await page.addStyleTag({path:path.join(root,editorDirectory,'editor.css')});
+    for(const file of ['prototypes/vendor/toastui-editor-3.2.2.min.js','prototypes/src/editor-rules.js',path.join(editorDirectory,'editor.js')])await page.addScriptTag({path:path.join(root,file)});
     const initial='## Client call\n\n> A launch people can join.\n\n- Confirm neighbourhood champions.\n- Chase approval Thursday.\n\n[Campaign research](https://example.com/research)';
     await page.evaluate(body=>bat.open({id:'note-a',body}),initial);
     assert.equal(await page.getByRole('textbox',{name:'Markdown note body'}).getAttribute('aria-multiline'),'true');

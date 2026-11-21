@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Bat.Reset.Development</AssemblyName><RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4314.35" />
+    <ProjectReference Include="../Bat.Persistence/Bat.Persistence.csproj" />
+    <Content Include="../Bat.Ui/**" Link="Ui/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../prototypes/vendor/toastui-editor-3.2.2.min.js" Link="Ui/vendor/editor.js" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../prototypes/vendor/LICENSE-toastui-editor.txt" Link="Ui/vendor/LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../prototypes/src/editor-rules.js" Link="Ui/editor-rules.js" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <Target Name="ExcludeUnusedWebViewWpfAdapter" BeforeTargets="ResolveAssemblyReferences"><ItemGroup>
+    <Reference Remove="@(Reference)" Condition="'%(Reference.Filename)' == 'Microsoft.Web.WebView2.Wpf'" />
+  </ItemGroup></Target>
+</Project>

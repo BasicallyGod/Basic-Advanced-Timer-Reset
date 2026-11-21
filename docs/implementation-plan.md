@@ -1,6 +1,6 @@
 # BAT Windows-first implementation plan
 
-21 November 2026. Planning baseline: design specification 1.17. Status: **ready to begin the production-frame stage; later stages retain explicit gates**.
+21 November 2026. Planning baseline: design specification 1.17. Status: **W01 in progress with a running Windows frame; acceptance and later-stage gates remain explicit**. See the [frame evidence](experiments/windows-production-frame.md) and [build instructions](../src/README.md).
 
 The user has confirmed Windows-first delivery. Cross-platform support is a distant possibility. Keep platform dependencies behind clear boundaries; spend the initial implementation effort on dependable Windows behaviour and the agreed product flows.
 

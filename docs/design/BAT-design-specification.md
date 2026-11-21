@@ -1,6 +1,6 @@
 # Basic’s Advanced Timer Design Specification
 
-**Version 1.17 · 21 November 2026 · Working specification**
+**Version 1.18 · 21 November 2026 · Working specification**
 
 BAT combines dependable time recording and timesheet review with a capable, searchable notes library. Accounts and reminders connect those workflows. Each workspace must remain useful independently, and the shared working-day timeline must keep recorded work and outstanding reminders understandable together.
 
@@ -396,5 +396,6 @@ These references inform navigation, search and writing patterns. Their full feat
 | 1.15 | 21 November 2026 | Recorded native compact-window checks at actual 125% DPI, responsive link fields, explicit editor semantics and the offscreen accessibility/rendering comparison. Physical 1080p, mixed-DPI and assistive-technology gates remain open. |
 | 1.16 | 21 November 2026 | Added the direct Microsoft WebView2 host comparison. Recorded visible writing with native document structure and capture/persistence checks. Recommended it as the stronger Windows host candidate; the production shell and full accessibility validation remain open. |
 | 1.17 | 21 November 2026 | Confirmed Windows-first delivery with distant cross-platform support. Added the staged implementation plan, platform decision and production-frame milestone. Retained explicit gates for accounting, links/storage, native validation and migration. |
+| 1.18 | 21 November 2026 | Added the running Windows production-frame slice and its [evidence](../experiments/windows-production-frame.md): independent capture, revision-acknowledged note/reminder persistence, Core clock, failure recovery and responsive writing. W01 remains in progress; development snapshot/restart behaviour does not settle production storage, planned-work or capture policies. |
 
 For future changes, update the affected requirement and its status, resolve or add the relevant open decision, revise the affected validation scenario and add a brief revision entry. If a prototype temporarily diverges, label the experiment and its intended test rather than silently changing the governing rule.

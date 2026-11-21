@@ -1,9 +1,9 @@
 name: Native Notes experiment
 on:
   push:
-    paths: ['experiments/**', 'tools/native-notes.ps1', 'tools/winforms-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
+    paths: ['src/**', 'tests/Bat.Frame.Checks/**', 'tests/check-production-frame.cjs', 'tools/windows-frame.ps1', 'experiments/**', 'tools/native-notes.ps1', 'tools/winforms-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
   pull_request:
-    paths: ['experiments/**', 'tools/native-notes.ps1', 'tools/winforms-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
+    paths: ['src/**', 'tests/Bat.Frame.Checks/**', 'tests/check-production-frame.cjs', 'tools/windows-frame.ps1', 'experiments/**', 'tools/native-notes.ps1', 'tools/winforms-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
 permissions:
   contents: read
 jobs:
@@ -28,6 +28,9 @@ jobs:
       - name: Build Microsoft WebView2 host comparison
         shell: pwsh
         run: ./tools/winforms-notes.ps1 build
+      - name: Build Windows frame and check application recovery
+        shell: pwsh
+        run: ./tools/windows-frame.ps1 check
   editor-component:
     runs-on: ubuntu-latest
     steps:
@@ -38,3 +41,8 @@ jobs:
       - run: npm install --ignore-scripts
       - run: npx playwright install --with-deps chromium
       - run: npm run test:native-editor
+      - name: Check the production-frame editor
+        run: npm run test:native-editor
+        env:
+          BAT_EDITOR_DIRECTORY: src/Bat.Ui
+      - run: npm run test:frame
