@@ -1,0 +1,18 @@
+{
+  "name": "basic-advanced-timer-reset",
+  "version": "0.0.0",
+  "private": true,
+  "description": "BAT reset design foundation and browser reference experiments",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "validate": "node tools/validate.cjs",
+    "build:prototypes": "node tools/build-prototypes.cjs",
+    "preview": "node tools/serve-prototypes.cjs",
+    "test:prototypes": "node tests/check-bat-day-dashboard.cjs && node tests/check-bat-time-flow.cjs && node tests/check-bat-notes-library.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

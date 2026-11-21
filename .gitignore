@@ -1,0 +1,26 @@
+# Build and development output
+**/bin/
+**/obj/
+node_modules/
+.vs/
+.idea/
+artifacts/
+prototypes/generated/
+.tools/
+*.user
+*.suo
+*.log
+*.trx
+*.nupkg
+# User data and credentials
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.bak
+.env
+.env.*
+!.env.example
+NuGet.Config
+nuget.config

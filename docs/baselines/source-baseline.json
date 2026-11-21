@@ -1,0 +1,45 @@
+{
+  "reviewedAt": "2026-11-21",
+  "desktop": {
+    "repository": "https://github.com/BasicallyGod/Basic-Advanced-Timer",
+    "alphaAndExperimentalCommit": "c6d0a67fd3205e355255f9ddf1148f41596f662c",
+    "stableMainCommit": "3686ae59a14f4ce30c4f3548119d5dfbbf065ade",
+    "observedAvalonia": "11.3.16",
+    "observedDefaultTarget": "net8.0",
+    "installedBuildComparison": "pending"
+  },
+  "shared": {
+    "repository": "https://github.com/BasicallyGod/Basic-Timer-Core",
+    "corePackage": "BasicallyGod.Timer.Core",
+    "storagePackage": "BasicallyGod.Timer.Storage",
+    "version": "0.10.1",
+    "sourceCommit": "361d0e32748be7c01e616d91176a844f805e8a08",
+    "sourceEvidence": "repository commit fields in both cached NuGet package manifests; database source verified at exact commit",
+    "databaseSchema": 7,
+    "behaviourAndMigrationCompatibility": "unverified"
+  },
+  "runtime": {
+    "installedSdkObserved": "8.0.425",
+    "candidate": ".NET 10 LTS",
+    "selected": false,
+    "supportPolicy": "https://dotnet.microsoft.com/en-us/platform/support/policy"
+  },
+  "verification": {
+    "legacyReleaseCompile": "passed with existing warnings",
+    "legacyTests": "First attempt: testhost connection timeout; zero tests executed. Unsandboxed retry: no completed results; stopped. Native baseline unresolved.",
+    "prototypeChecks": "All three imported browser scenarios passed on 21 November 2026 using Chromium: dashboard/meetings, time-entry totals/undo/collisions, and Notes editing/search/links; responsive widths 320\u20131024."
+  },
+  "resetRepository": {
+    "url": "https://github.com/BasicallyGod/Basic-Advanced-Timer-Reset",
+    "visibility": "public",
+    "defaultBranch": "main"
+  },
+  "pending": [
+    "Installed desktop build/data comparison",
+    "Native testhost baseline",
+    "Ledger/storage reuse suitability",
+    "Native editor and supported target feasibility",
+    "Document/link/migration model",
+    "Project licence"
+  ]
+}

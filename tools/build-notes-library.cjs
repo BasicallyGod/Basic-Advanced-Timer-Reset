@@ -1,0 +1,13 @@
+const fs=require('fs');
+const path=require('node:path');
+const dir=path.resolve(__dirname,'../prototypes/src')+path.sep;
+const out=path.resolve(__dirname,'../prototypes/generated')+path.sep;
+fs.mkdirSync(out,{recursive:true});
+const rules=fs.readFileSync(dir+'editor-rules.js','utf8');
+const vendor=fs.readFileSync(dir+'../vendor/toastui-editor-3.2.2.min.js','utf8').replace(/<\/script/gi,'<\\/script');
+const license=fs.readFileSync(dir+'../vendor/LICENSE-toastui-editor.txt','utf8');
+const html=fs.readFileSync(dir+'bat-notes-library.template.html','utf8').replace('/* EDITOR_VENDOR */',()=>vendor).replace('/* EDITOR_FUNCTIONS */',()=>rules)+'\n<!-- TOAST UI Editor license\n'+license+'\n-->\n';
+if(Buffer.byteLength(html)>1000000)throw Error('Inline fragment exceeds 1 MB');
+if(/\/\* EDITOR_/.test(html))throw Error('Unfilled build token');
+fs.writeFileSync(out+'bat-notes-library.html',html);
+console.log('Built notes library: '+Buffer.byteLength(html)+' bytes');

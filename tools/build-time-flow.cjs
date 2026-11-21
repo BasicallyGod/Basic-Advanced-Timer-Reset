@@ -1,0 +1,20 @@
+const fs=require('fs');require('./build-day-dashboard.cjs');
+const path=require('node:path');
+const dir=path.resolve(__dirname,'../prototypes/src')+path.sep;
+const out=path.resolve(__dirname,'../prototypes/generated')+path.sep;
+fs.mkdirSync(out,{recursive:true});
+let html=fs.readFileSync(out+'bat-day-dashboard.html','utf8').replaceAll('bat-day-dashboard','bat-time-flow');
+const replace=(from,to)=>{if(!html.includes(from))throw Error('Missing flow boundary '+from.slice(0,70));html=html.replace(from,to);};
+replace('</style>',fs.readFileSync(dir+'bat-time-flow.extra.css','utf8')+'\n</style>');
+replace('<div class="pill"',fs.readFileSync(dir+'bat-time-flow-controls.html','utf8')+'\n<div class="pill"');
+replace('const previewNow=645,minute=','let previewNow=645;const minute=');
+const blockStart=html.indexOf('let blocks='),blockEnd=html.indexOf('\n',blockStart);const seeded=JSON.parse(html.slice(blockStart+'let blocks='.length,blockEnd).trim().replace(/;$/,''));replace(html.slice(blockStart,blockEnd),'let blocks='+JSON.stringify(seeded.filter(b=>b.id!=='rowan-media'))+';');
+const entryStart=html.indexOf('function timeForm(id=null){'),entryEnd=html.indexOf('function editMeeting(',entryStart);if(entryStart<0||entryEnd<0)throw Error('Time entry functions missing');html=html.slice(0,entryStart)+fs.readFileSync(dir+'bat-time-flow-entry.js','utf8')+'\n'+html.slice(entryEnd);
+replace("'10:45 · '+duration(totalLogged())","clock(previewNow)+' · '+duration(totalLogged())");
+replace('<span>10:45</span>','<span>\'+clock(previewNow)+\'</span>');
+html=html.replace(/([<>]=?)'2026-11-20T10:45'/g,"$1('2026-11-20T'+clock(previewNow))");
+replace('blocks.filter(visible).map','blocks.filter(b=>visible(b)&&minute(b.end)>minute(b.start)).map');
+// Store and restore the simulated clock in the existing durable state envelope.
+replace('Object.assign(state,p.state);','Object.assign(state,p.state);previewNow=state.previewNow??645;');
+if(Buffer.byteLength(html)>1000000)throw Error('Fragment exceeds 1 MB');
+fs.writeFileSync(out+'bat-time-flow.html',html);console.log('Built time-entry flow: '+Buffer.byteLength(html)+' bytes');

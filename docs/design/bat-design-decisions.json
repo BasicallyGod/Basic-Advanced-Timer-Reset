@@ -1,0 +1,168 @@
+{
+  "project": "Basic's Advanced Timer reset",
+  "updated": "2026-11-21",
+  "canonicalSpecification": "docs/design/BAT-design-specification.md",
+  "specificationVersion": "1.12",
+  "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
+  "referencePrototype": "bat-day-dashboard.html",
+  "timeEntryPrototype": "bat-time-flow.html",
+  "notesPrototype": "bat-notes-library.html",
+  "decisions": [
+    {
+      "id": "foundation-and-new-repository-review",
+      "status": "repository_established_stack_and_reuse_open",
+      "intent": "Consider the existing foundations and prepare a new repository before the implementation plan.",
+      "review": "docs/design/BAT-foundation-review.md",
+      "verifiedBaseline": "Alpha/experimental c6d0a67fd3205e355255f9ddf1148f41596f662c; stable main 3686ae59a14f4ce30c4f3548119d5dfbbf065ade. Core/Storage 0.10.1 both identify source 361d0e32748be7c01e616d91176a844f805e8a08, schema 7. Installed-build comparison and behavioural validation remain open.",
+      "recommendation": "Evaluate a fresh app repository with selective reuse of verified engine, storage and Windows components. Assess the native writing slice before finalising the UI/editor stack. Port design material and prototype build commands in a portable form.",
+      "remainingDecision": "O13: installed baseline, reuse boundaries, supported targets, native editor integration and dependency structure. User selected and authorized public BasicallyGod/Basic-Advanced-Timer-Reset. Repository established; desktop scaffold awaits feasibility evidence."
+    },
+    {
+      "id": "lightweight-reminders-and-linked-notes",
+      "status": "confirmed_product_direction",
+      "decision": "Design a quick reminder around a short action, account and exact date/time. One or two concise sentences describe the intended ease, not a hard content limit. Substantial background, call notes and longer instructions belong in Notes with an explicit reminder action or link.",
+      "captureGuardrail": "Keep long-form editing out of quick reminder capture. A short reminder does not require or automatically create a full note. Preserve draft content when explicitly developing it into a linked note, and preserve existing longer reminder content through editing and migration.",
+      "remainingDesign": "O11 still covers entry-point hierarchy, shortcuts, contextual account defaults and compact layout."
+    },
+    {
+      "id": "seasonal-touches-and-easter-eggs",
+      "status": "confirmed_direction_details_open",
+      "decision": "Reintroduce small seasonal touches and occasional Easter eggs, inspired by the original BAT without requiring an exact recreation. Include this character in the reset direction while keeping broad theme exploration outside the initial pass.",
+      "presentationProposals": "Explore a seasonal detail on the bat or pill, a small dashboard accent or occasional subtle responses. Preserve time/account/reminder clarity, writing space, compact sizing, Light/Dark legibility and reduced-motion behaviour.",
+      "remainingDecision": "O12: seasonal calendar, motifs, placements, visibility preferences and delivery timing."
+    },
+    {
+      "id": "quick-reminder-versus-quick-note",
+      "status": "confirmed_user_need_entry_point_design_open",
+      "userNeed": "The user expects quick reminder creation much more often than quick note capture. Both must be immediately reachable without passing through or becoming trapped in the other process.",
+      "frequencyAssumption": "Use the user's reported expectation to prioritise reminder access and validate it in the capture flow; no population-wide frequency has been measured.",
+      "proposal": "Test separate labelled reminder and note actions with reminder capture more prominent, and distinct global shortcuts. Reminder capture asks for action text and precise timing without requiring a full note; Quick note opens the complete editor. Context can prefill account or meeting information without silently changing capture type. Preserve draft content when the user explicitly changes intention.",
+      "validation": "Capture several reminders from another app, then take an urgent call note while tracking continues. Repeat across context changes and after using the other route. Check discoverability, capture steps, exact scheduling and draft-preserving recovery at compact sizes.",
+      "remainingDecision": "O11: final pill hierarchy, labels, shortcut bindings and contextual defaults. The current prototype has not been changed for this issue."
+    },
+    {
+      "id": "unified-add-time",
+      "status": "confirmed_requirement",
+      "decision": "Use one Add time form without a Past work/Ahead toggle or another time-entry mode choice. Infer past, current and future behaviour from the entered interval and current clock. Keep duration shortcuts and the placement preview.",
+      "validation": "Change an unsaved interval from past to future and back in the same form; update its preview without changing the ledger until Save. The time-flow browser scenarios pass with typed intervals replacing the old toggle."
+    },
+    {
+      "id": "time-entry-interruption-experiment",
+      "status": "prototype_proposal_awaiting_user_review",
+      "prototype": "bat-time-flow.html",
+      "proposal": "Keep exact time entry and draft placement in the day context. Pause clips the accruing interval and holds unused minutes unscheduled for Resume or Finish. Resuming proposes the held duration from a chosen start. Overlap correction previews precise before/after intervals and explicitly replaces only the overlapping minutes, preserving outside pieces and note links with Undo.",
+      "liveTimerProposal": "The same ledger supports live recording. Applying a correction to a live interval pauses that timer; a live timer stops at the next committed work boundary. These rules and held-remainder behaviour remain open under O01.",
+      "validation": "Browser checks passed for a 25-minute past entry, automatic elapsed accrual, a 30-minute allocation paused after 12 minutes with 18 held, resumed overlap preview, explicit trimming and splitting, note-link preservation, live-timer collisions and boundaries, exact totals, cancellation/Undo, Notes continuity, 320–1024 layouts and no-write restoration. The preview clock is manually advanced.",
+      "nextDecision": "User review of whether held remainders and the proposed overlap correction match their working day. Native timer behaviour and range animation still require implementation and validation."
+    },
+    {
+      "id": "timeline-range-animation",
+      "status": "implementation_requirement",
+      "decision": "Animate Morning, Afternoon and Full day changes so users can understand the timeline moving earlier or later and zooming out or in. Coordinate work blocks, meetings, reminder markers and axis ticks on one shared time axis while preserving record identity and selection. Adjust scale smoothly where day-part spans differ.",
+      "timing": "Final application implementation; animation is not required in the current prototype pass.",
+      "validation": "Observe panning between day parts and zooming into or out of Full day. Keep selection and totals stable, tune duration and easing in the application, and respect reduced-motion preferences with a clear range label and an immediate or reduced transition."
+    },
+    {
+      "id": "useful-timesheets-landing",
+      "status": "user_need_confirmed_layout_proposal_to_evaluate",
+      "followupFeedback": "The populated dashboard and Notes feel strong. When the dashboard stacks, reminders should appear above Recent work. Notes sidebars may need decluttering, but significant changes should wait for further consideration.",
+      "responsivePriority": "Meeting or selected-record context, then the reminder list, then Recent work when stacked. Wide layouts retain the reminder queue on the right.",
+      "rangeControlProposal": "Morning, Afternoon and Full day use small icons plus readable labels and range tooltips. Range changes preserve selection, all recorded data, totals and the due queue. Sample hours remain prototype choices.",
+      "userFeedback": "The stronger timeline helps, but a sparse timeline, reminders and an isolated selected-block card do not provide an inviting or immediately useful landing page. Meetings also need to return to the whole-day view.",
+      "proposal": "Use a realistic day with a next-meeting context and direct access to notes, recent work to amend, a primary Add time action and a bounded reminder queue. Keep work, meeting reservations and reminder markers on coordinated tracks, with a focused range and full-day option.",
+      "capturePolicy": "Use the last recorded entry as a starting suggestion for manual time entry, while requiring account selection and explicit submission. Do not treat an unallocated gap as recorded work automatically.",
+      "prototype": "bat-day-dashboard.html",
+      "validation": "Browser checks cover eight accounts and eleven seeded blocks, three meetings including overlapping reservations, time capture/editing and work-overlap rejection, meeting changes and notes without extra recorded hours, independent note retrieval, reminder moves and reversal, saved-state restoration and 320–1024 pixel layouts.",
+      "remainingDesign": "User review of landing usefulness and hierarchy. The prototype uses a fixed clock and sample data; native timing, recurrence, dragging, notification delivery, budgets and weekly handoff remain separate work."
+    },
+    {
+      "id": "direct-block-manipulation",
+      "status": "implementation_requirement",
+      "decision": "Make dragging the primary way to move a time block and edge dragging the primary way to change its start or end. Retain the edit popup for precise entry and keyboard access.",
+      "timing": "Native application build; do not implement dragging in the current visual pass.",
+      "validation": "Preview the landing time and snapping; retain selection and running timer state; support undo."
+    },
+    {
+      "id": "persistent-bounded-reminder-list",
+      "status": "next_prototype_proposal",
+      "decision": "Keep a compact reminder list visible alongside the timeline. Test three to four visible rows, a prominent due count and a precise count of additional due reminders. Only the selected reminder exposes actions or detail.",
+      "validation": "Complete or move an item and reveal the next one without increasing the window height. List rows, markers, rescheduling and linked notes refer to the same reminder. Include overdue items from earlier days."
+    },
+    {
+      "id": "searchable-note-linking",
+      "status": "separate_notes_prototype_path",
+      "decision": "Replace the unbounded existing-note dropdown with recent notes and title/body search. Prioritise relevant account or project context while preserving access to unassigned and other notes.",
+      "validation": "Find and link the correct note among hundreds, including duplicate titles and a phrase remembered only from the body. Show a match snippet and context without duplicating the note."
+    },
+    {
+      "id": "weekly-handoff-purpose",
+      "status": "confirmed_intent",
+      "decision": "The week view supports deliberate manual transfer into Float or another external timesheet. Keep descriptions and durations readable, mark progress, and reconcile totals against recorded blocks.",
+      "remainingDesign": "External-code mappings, grouped new-business totals, budget periods and missing-description checks remain part of the original brief; the current view does not establish native integration."
+    },
+    {
+      "id": "notes-workspace-refinement",
+      "status": "separate_notes_prototype_path",
+      "decision": "Use left-aligned document titles and headings. Reduce wasted editor space and unnecessary chrome. Explore recent notes, account/project collections, linked notes, body search and context-aware retrieval as a complete writing workflow.",
+      "validation": "Capture without metadata or time entry, develop the same note, optionally link it to time or reminders, group and retrieve it later, and retain place and drafts at narrow widths."
+    },
+    {
+      "id": "work-context-hierarchy",
+      "status": "confirmed_flat_default_optional_nested_projects_details_to_validate",
+      "briefConstraint": "The brief identifies retainers, projects and new business as account types, including several prospects mapping to one external New Business code.",
+      "decision": "Standalone short-lived projects use ordinary accounts and can be hidden after completion while preserving history. Agency time or Non-billable can also be ordinary accounts; client-specific administration can remain a block description. Support optional nested projects with distinct billable codes beneath a retained account without requiring them for description-only use.",
+      "presentationProposal": "Use top-level context colours and show the full destination path in selection and handoff. Avoid an extra permanent lane or unrelated colour for each subproject.",
+      "remainingDesign": "Parent/project rollups, budget attribution, external-code defaults and history-preserving hiding mechanics remain open in O02.",
+      "validation": "Use eight accounts, five projects including an ordinary three-week project and separately coded Press Office/Campaign projects beneath a retained account, prospects and an ordinary Agency time account. Hide a completed project without losing history and reconcile individual and grouped totals."
+    },
+    {
+      "id": "accepted-rescheduling-interaction",
+      "status": "accepted_behavior_visuals_provisional",
+      "decision": "Keep the compact destination control, hour/minute wheel targeting, fine taps, accelerated holds, direct typing, explicit Move, Cancel and Undo. Refine popup placement during application layout work."
+    },
+    {
+      "id": "connected-notes-library-direction",
+      "status": "user_direction_with_prototype_choices_to_validate",
+      "intent": "Develop a nested, interconnected and searchable notes library, drawing interaction inspiration from the supplied Bear, Drafts and Typora references without copying their interfaces.",
+      "clarifiedDirection": "Assigning a note to an account gives it a home in that account's folder-like branch. Nested tags provide routes within the branch. A note can also reference another account while retaining a visible home and a single saved identity. The user needs to see the cross-account presentation and nested organisation in practice before settling them.",
+      "prototypeEvidence": {
+        "prototype": "bat-notes-library.html",
+        "status": "positive_user_feedback_timeline_refinement_awaiting_review",
+        "userFeedback": "The Notes flow feels natural, the different widths work well and the separate reminder track is clear. The Timesheets timeline needs greater visual emphasis.",
+        "appliedPrototypePreferences": {
+          "treeWidth": 176,
+          "focus": true
+        },
+        "timelineRefinement": "Larger work blocks, a current-time marker and the selected entry take priority over the folded chronological list. The reminder track remains separate and the bounded queue exposes actions for one selected reminder.",
+        "scope": "150 sample notes, home and related-account views, nested tag collections, body search snippets, live Markdown, links/backlinks, optional formatting and searchable time-block linking. The small Timesheets view provides integration context only.",
+        "checked": "Shared-note edits from two accounts, pasted-link editing, a list amendment and undo, formatting undo, direct capture while the timer state stays active, note/time/reminder associations, reminder move reversal, state restoration and 320–1024 pixel layouts. No outbound requests during browser checks.",
+        "limitations": "Sample data and fixed clock. Native durable storage, global shortcuts, actual timer accounting, notification delivery and the organisation presentation remain unvalidated or awaiting user feedback."
+      },
+      "proposedModel": {
+        "workContext": "Optional home account/project reused from BAT's work destinations, with distinguishable references from related accounts. Capture without context remains valid. Exact controls and storage remain to be tested.",
+        "tags": "Optional tags, including nested themes, provide subdivisions and overlapping collections. One saved note may appear in several views. Note subdivisions do not automatically create billable projects or external codes.",
+        "noteLinks": "Search-assisted links between notes and a linked-from view. Preserve links when titles change.",
+        "retrieval": "Global title/body search with visible optional context scope and snippets around matches. Reuse this retrieval surface for linking existing notes to time blocks."
+      },
+      "layout": "At wider sizes, explore a collapsible context tree, compact note/result list and a generous writing area. At narrow sizes, tuck navigation away while preserving the current context, filter, selection and draft. Keep the title outside the page, headings left aligned, live Markdown and the optional floating formatting bar.",
+      "captureGuardrail": "Quick note opens ready to type. Naming, account/project assignment, tagging, reminder creation and time-block linking can follow later.",
+      "firstScenario": "Capture a brainstorming note, later give it a home under Account One and a nested tag subdivision, develop a quotation and source link, and make it discoverable through Account Two with the original home visible. Edit the same document from both routes, connect it to a messaging note, optionally create a reminder, and retrieve it a fortnight later by context and a body phrase. Test hundreds of notes and duplicate titles.",
+      "references": [
+        "https://bear.app/faq/how-to-use-tags-in-bear/",
+        "https://bear.app/faq/how-to-link-notes-together/",
+        "https://bear.app/faq/how-to-use-the-info-panel-table-of-contents-and-backlinks-in-bear/",
+        "https://notesaboutnotetaking.wordpress.com/2020/05/15/typora-markdown-as-wysiwyg-as-it-can-get/",
+        "https://support.typora.io/Quick-Start/"
+      ],
+      "screenshots": "output/references/notes-inspiration/"
+    },
+    {
+      "id": "planned-time-recording-and-overlap",
+      "status": "confirmed_recording_default_pause_and_conflict_interactions_to_validate",
+      "decision": "Work placed ahead becomes recorded automatically as its time passes unless the user specifies otherwise. Do not require a second confirmation. Keep normal retrospective correction available. Treat overlapping recorded blocks as incorrect by default; overlapping meeting reservations are allowed because they do not automatically commit recorded work.",
+      "pauseProposal": "Explore a clearer pause control integrated with the existing timer to indicate interruption or early finish. Which block it affects, what happens to the remainder and how resume works remain open in O01.",
+      "remainingDesign": "Resolve collisions between manually entered work, automatically elapsed blocks and live recording without silent double counting or data loss. The default against recorded overlap can be revisited explicitly.",
+      "validation": "Allow a future 10:00–10:30 block to become recorded without another prompt, then correct it. Test early finish and pause, a live-timer collision, manual overlap and two overlapping meeting reservations."
+    }
+  ]
+}
