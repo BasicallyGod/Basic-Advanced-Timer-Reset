@@ -2,12 +2,21 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-21",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.13",
+  "specificationVersion": "1.14",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "native-notes-keyboard-focus-boundary",
+      "status": "verified_experiment_fix",
+      "report": "docs/experiments/native-notes-feasibility.md",
+      "finding": "The pinned Windows WebView adapter leaves ResignFocus empty. Native logical focus could differ from Win32 keyboard focus.",
+      "change": "Reclaim only the experiment window keyboard focus for native controls, excluding WebView descendants. Add F6 writing/native-controls navigation and Enter/Escape link actions.",
+      "validation": "Real Windows input verified immediate URL replacement after Ctrl+A, Enter applying only the link, F6/Tab pane navigation and Escape discarding a provisional URL. The browser component regression verifies handoff messages and editor selection restoration.",
+      "remainingGates": "Rendered-editor accessibility remains unreliable through desktop inspection; full assistive technology, keyboard boundary, clipboard/IME and mixed-DPI checks remain open. O11 final bindings and O13 stack choice are unchanged."
+    },
     {
       "id": "native-notes-first-feasibility-slice",
       "status": "experiment_complete_with_remaining_gates",

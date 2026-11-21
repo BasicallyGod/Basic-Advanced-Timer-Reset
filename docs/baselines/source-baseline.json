@@ -28,7 +28,8 @@
     "legacyReleaseCompile": "passed with existing warnings",
     "legacyTests": "First attempt: testhost connection timeout; zero tests executed. Unsandboxed retry: no completed results; stopped. Native baseline unresolved.",
     "prototypeChecks": "All three imported browser scenarios passed on 21 November 2026 using Chromium: dashboard/meetings, time-entry totals/undo/collisions, and Notes editing/search/links; responsive widths 320\u20131024.",
-    "nativeNotesSlice": "First native experiment: clean compile; nine persistence/identity/Core timing checks pass against the pinned shared source; rendered-editor component regression passes. Native capture/reopening observed. Accessibility and native scaling gates remain open."
+    "nativeNotesSlice": "First native experiment: clean compile; nine persistence/identity/Core timing checks pass against the pinned shared source; rendered-editor component regression passes. Native capture/reopening observed. Accessibility and native scaling gates remain open.",
+    "nativeFocusFollowup": "Native link address focus fixed and verified with real Windows input: Ctrl+A/type/Enter applies only the link; F6/Tab navigation and Escape cancellation pass. Rendered-editor accessibility remains open."
   },
   "resetRepository": {
     "url": "https://github.com/BasicallyGod/Basic-Advanced-Timer-Reset",

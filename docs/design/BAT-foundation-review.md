@@ -38,7 +38,7 @@ Test one small native slice before committing the UI/editor stack: open a note f
 
 Include keyboard selection and undo, clipboard behaviour, focus restoration, multiple monitors and 1080p at 125 percent scaling. The HTML prototype demonstrates a writing interaction; its browser editor component does not decide the native editor integration. Compare alternative approaches if this slice exposes a material limitation.
 
-The [first native Notes experiment](../experiments/native-notes-feasibility.md) is now runnable. It establishes direct global capture, saved-note reopening, independent Core timing and atomic snapshot recovery checks. Hosted-editor accessibility, source/clipboard behaviour, native scale changes and failure handling remain gates. The experiment does not select the final stack or production document schema.
+The [first native Notes experiment](../experiments/native-notes-feasibility.md) is now runnable. It establishes direct global capture, saved-note reopening, independent Core timing and atomic snapshot recovery checks. Its link-field keyboard-focus regression is fixed and verified in Windows, including Apply/Cancel and F6 pane navigation. Hosted-editor accessibility, complete source/clipboard and keyboard behaviour, native scale changes and failure handling remain gates. The experiment does not select the final stack or production document schema.
 
 ## New repository
 

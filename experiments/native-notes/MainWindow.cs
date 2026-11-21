@@ -4,6 +4,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Platform;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Platform;
 using Avalonia.Media;
@@ -90,6 +91,17 @@ internal sealed class MainWindow : Window
         var body = new Grid();body.Children.Add(library);body.Children.Add(work);body.Children.Add(editor);Grid.SetRow(body,2);root.Children.Add(body);
         var foot = new StackPanel { Spacing = 3 };foot.Children.Add(saved);foot.Children.Add(shortcut);saved.FontSize = shortcut.FontSize = 12;Grid.SetRow(foot,3);root.Children.Add(foot);
         Content = root;
+        var focusBoundary = new NativeFocusBoundary(this,web);
+        AddHandler(InputElement.GotFocusEvent,(_,args)=>{
+            if(args.Source is Control control)focusBoundary.ReclaimFor(control);
+        },RoutingStrategies.Bubble);
+        AddHandler(InputElement.KeyDownEvent,(_,args)=>{
+            if(args.Key==Key.F6&&selected is not null&&!source.IsVisible){args.Handled=true;web.Focus();_=Run("bat.focus()");}
+        },RoutingStrategies.Bubble);
+        linkEditor.KeyDown += (_,args)=>{
+            if(args.Key==Key.Enter){args.Handled=true;_=ApplyLink();}
+            else if(args.Key==Key.Escape){args.Handled=true;linkEditor.IsVisible=false;web.Focus();_=Run("bat.focus()");}
+        };
         AutomationProperties.SetName(title,"Note title");AutomationProperties.SetName(account,"Note account");AutomationProperties.SetName(source,"Plain Markdown note body");AutomationProperties.SetName(search,"Search notes");
         AutomationProperties.SetName(linkText,"Link text");AutomationProperties.SetName(linkUrl,"Link address");
 
@@ -147,6 +159,7 @@ internal sealed class MainWindow : Window
             using var doc = JsonDocument.Parse(message);var data = doc.RootElement;
             if(data.GetProperty("type").GetString() is "ready") { browserReady = true;if(selected is { } id) await LoadEditor(store.Data.Notes.Single(n=>n.Id==id));return; }
             if(!data.TryGetProperty("id",out var key)||!Guid.TryParse(key.GetString(),out var noteId)||selected!=noteId) return;
+            if(data.GetProperty("type").GetString()=="focusShell"){title.Focus(NavigationMethod.Tab);return;}
             if(data.GetProperty("type").GetString()=="editLink")
             {
                 linkText.Text=data.GetProperty("text").GetString()??"";linkUrl.Text=data.GetProperty("url").GetString()??"";

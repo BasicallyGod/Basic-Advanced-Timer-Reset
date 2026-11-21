@@ -1,6 +1,6 @@
 # Native Notes feasibility — first slice
 
-21 November 2026. Status: **runnable experiment; stack gate remains open**. Scope: R05, R16–R20 and evidence for O07/O13. No product policy or production database schema is selected by this experiment.
+21 November 2026. Status: **native focus regression fixed; broader stack gate remains open**. Scope: R05, R16–R20 and evidence for O07/O13. No product policy or production database schema is selected by this experiment.
 
 ## Candidate under test
 
@@ -22,11 +22,29 @@ The experiment uses .NET SDK 10.0.404, Avalonia 12.1.6, Avalonia.Controls.WebVie
 | Editor component regression | The browser component check passes rendering, in-list amendment, editing a source link, formatting undo, context restoration and immediate capture, with no external requests. This checks the embedded editor code; it is not native WebView accessibility proof. |
 | Attention continuity | The native timer readout and due-reminder row continued updating while writing. The reminder is an in-process 30-second harness; Windows toast delivery, scheduling after sleep/restart and rescheduling remain untested. |
 | Accessibility | Desktop inspection returned native shell/source controls reliably but no accessibility text during several focused rendered-editor observations. The child document appeared when the editor was hidden. An ARIA label was corrected to target the visible editor. Recheck with actual assistive technology and the final build; do not call this gate passed. |
-| Native link-field focus | Clicking a source link revealed the native text/address fields, but programmatic address-field focus did not reliably take keyboard input from the web editor: Ctrl+A selected the note instead. Explicitly clicking the address field selected its URL correctly. This fails seamless keyboard focus. A separate link-selection bookmark now protects link edits from unrelated selection snapshots; its regression passes. The native focus gate remains open. |
+| Initial native link-field failure | Ctrl+A initially selected the note even though the address field appeared focused. Explicit field clicking worked. The subsequent focus-boundary fix and native verification below resolve this specific regression; broader accessibility and keyboard gates remain open. |
+
+## Focus-boundary follow-up
+
+The pinned Windows adapter implements `ResignFocus()` as an empty method. Avalonia could mark the address field focused while the child WebView retained Win32 keyboard focus. The experiment now reclaims only its own window's keyboard focus when a native Avalonia control gains logical focus. WebView controls and their children are excluded from that handoff. The change uses the existing package and does not patch its source or depend on a timed delay.
+
+Windows keyboard verification after the fix:
+
+| Scenario | Observed result |
+| --- | --- |
+| Click source link, Ctrl+A, type URL | The address was selected and replaced immediately, without another field click. The note remained intact. |
+| Enter to apply | Writing regained focus; the saved Markdown contained the amended URL. The note ID, other text and linked work description were unchanged. |
+| F6, Tab, F6 | F6 reached the title; Tab reached the account field; F6 returned to the original writing selection. |
+| Ctrl+K, type provisional URL, Escape | The fields closed and writing regained focus. The provisional URL did not enter the saved note; the previously applied URL remained. |
+| Accessibility inspection | Inspection still returned no accessibility text in several rendered-editor observations. The keyboard fix does not close the accessibility gate. |
+
+The component regression also verifies that the F6 handoff leaves Markdown unchanged and restores the editor selection. The real Win32 handoff is established by the Windows interaction checks above, not by that browser test. Full Tab-boundary behaviour, assistive-technology checks and mixed-DPI validation remain outstanding.
+
+Source evidence: [the pinned adapter's empty ResignFocus method](https://github.com/AvaloniaUI/Avalonia.Controls.WebView/blob/3df9183123403dfb0d079f876bed03f8c8c78353/src/Avalonia.Controls.WebView.Core/Win/WebView2/WebView2BaseAdapter.cs#L256), [the pinned Avalonia focus handling](https://github.com/AvaloniaUI/Avalonia.Controls.WebView/blob/3df9183123403dfb0d079f876bed03f8c8c78353/src/Avalonia.Controls.WebView/NativeWebView.cs#L619), and [Microsoft's SetFocus API](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setfocus).
 
 ## Gates before a stack decision
 
-1. Resolve rendered-editor accessibility, keyboard traversal across the native host, clipboard formats, IME and link editing in the actual Windows host. The browser regression is supporting evidence only.
+1. Resolve rendered-editor accessibility and complete keyboard traversal, clipboard and IME validation in Windows. The specific link-address focus failure is fixed and native Apply/Cancel checks pass. The browser regression remains supporting evidence only.
 2. Compare the rendered editor and native source/preview workflow with the same writing tasks. Switching to source currently resets rendered-editor undo history; decide whether that is acceptable for an optional fallback. Test pasted Markdown, pasted source links, mid-list edits and undo after leaving/reopening a note.
 3. Validate narrow native windows, 1080p at 125% scaling and movement across monitors at different scales. No OS display setting was changed during this slice. Browser widths do not close this gate.
 4. Exercise large notes, rapid repeated capture, editor/process failure and forced interruption during saving. The atomic store tests cover complete snapshot recovery, not every editor-to-host failure or production recovery policy.

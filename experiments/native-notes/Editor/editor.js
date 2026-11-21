@@ -51,6 +51,7 @@ document.addEventListener('paste',event=>{
   }
 },true);
 document.addEventListener('keydown',event=>{
+  if(event.key==='F6'){event.preventDefault();window.bat.remember();send({type:'focusShell',id:activeEditorId});}
   if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();window.bat.editLink();}
   if(event.key==='Escape'){event.preventDefault();send({type:'close',...snapshot()});}
 });

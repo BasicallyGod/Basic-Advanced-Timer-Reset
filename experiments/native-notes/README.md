@@ -29,6 +29,8 @@ The executable is `Bat.Reset.NotesExperiment`. It never opens the installed app'
 3. Close the note with Back or Escape. Search its body text in Notes. Open it again or link it to the sample client call, then reopen through Timesheets. The sample work record's identity and description stay independent of the note.
 4. Close and relaunch the process against the same experiment directory to check persistence. Resize to a narrow window. Check keyboard focus, clipboard, selection, undo and source links yourself.
 
+F6 moves from writing to the note title and back to writing from the native controls. Tab/Shift+Tab move through those controls. Clicking a source link or pressing Ctrl+K opens link fields with keyboard focus in the address; Enter applies and Escape cancels. These are experiment bindings, not final O11 shortcut choices. See the focus regression results in the feasibility report.
+
 Copy text currently copies Markdown. Plain text is a fallback editor for comparison; switching between source and rendered editing resets the editor's undo history. Full rich/plain comparison, clean Word copying and production export remain open under O07.
 
 ## Verification and limits
