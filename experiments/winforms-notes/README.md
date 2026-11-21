@@ -16,4 +16,6 @@ Ctrl+Alt+N captures into the full editor. F6 switches writing/native controls; F
 
 The build excludes the package's unused WPF adapter reference, avoiding an unrelated WindowsBase assembly conflict. Public package versions are locked; setup checks the shared Core commit.
 
+**Core access:** Basic-Timer-Core is private. Local setup requires an existing Git login with read access. Native CI is opt-in: provide a repository secret `BAT_CORE_READ_TOKEN` with read access to that Core repository and set repository variable `BAT_CORE_CI_ENABLED=true`. The workflow checks out the exact commit without persisting credentials. No token is created or stored by this experiment. Until configured, the native CI job is skipped; public editor/foundation checks still run. Local native builds use the actual pinned source.
+
 See [comparison findings](../../docs/experiments/direct-webview2-host-comparison.md). The result supports direct WebView2 as the stronger Windows host candidate. Actual screen-reader, IME, full clipboard/keyboard behaviour and multi-monitor validation remain separate gates. UIA inspection is evidence of exposed structure, not accessibility certification. The recent-note dropdown and control styling are harness conveniences, not product design decisions.

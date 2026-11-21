@@ -24,7 +24,7 @@ window.bat = {
     this.focus();
   },
   snapshot,
-  focus(){editor?.focus();if(restoredSelection){try{editor.setSelection(...restoredSelection)}catch{}restoredSelection=null;}},
+  focus(){editor?.focus();if(restoredSelection){try{editor.setSelection(...restoredSelection)}catch{}restoredSelection=null;}document.querySelector('.toastui-editor-ww-container [contenteditable]')?.focus({preventScroll:true});},
   remember(){restoredSelection=snapshot().selection;return snapshot();},
   restore(position){restoredSelection=position.selection;window.scrollTo(0,position.scroll||0);this.focus();},
   format(command){editor?.exec(command);this.focus();},

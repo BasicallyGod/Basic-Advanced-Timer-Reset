@@ -8,9 +8,17 @@ permissions:
   contents: read
 jobs:
   native-build-and-storage:
+    if: vars.BAT_CORE_CI_ENABLED == 'true'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
+        with:
+          repository: BasicallyGod/Basic-Timer-Core
+          ref: 361d0e32748be7c01e616d91176a844f805e8a08
+          path: .tools/core-source
+          token: ${{ secrets.BAT_CORE_READ_TOKEN }}
+          persist-credentials: false
       - name: Prepare pinned SDK and Core; restore and build
         shell: pwsh
         run: ./tools/native-notes.ps1 setup

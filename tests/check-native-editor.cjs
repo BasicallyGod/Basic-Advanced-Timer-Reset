@@ -36,6 +36,7 @@ const root=path.resolve(__dirname,'..');
     const position=await page.evaluate(()=>bat.remember());
     await page.evaluate(()=>bat.open({id:'note-b',body:''}));
     await page.evaluate(()=>bat.focus());
+    await page.waitForFunction(()=>document.activeElement===document.querySelector('.toastui-editor-ww-container [contenteditable]'));
     await page.keyboard.insertText('Immediate capture');assert.equal(await page.evaluate(()=>bat.snapshot().body),'Immediate capture');
     await page.evaluate(p=>{bat.open({id:'note-a',body:p.body});bat.restore(p)},position);
     assert.equal(await page.evaluate(()=>bat.snapshot().body),body);

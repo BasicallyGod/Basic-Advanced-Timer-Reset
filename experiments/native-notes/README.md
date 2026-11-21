@@ -12,7 +12,7 @@ On Windows, from the repository root in PowerShell:
 ./tools/native-notes.ps1 run
 ```
 
-Setup downloads Microsoft's official SDK 10.0.404 into ignored `.tools/dotnet`, checks out shared Core commit `361d0e32748be7c01e616d91176a844f805e8a08` into `.tools/core-source`, and restores pinned packages from NuGet. It needs Git and internet access. The experiment references that pinned source directly, so no private NuGet credentials are needed. Windows needs the Edge WebView2 runtime. No system PATH or system SDK is changed by the script.
+Setup downloads Microsoft's official SDK 10.0.404 into ignored `.tools/dotnet`, checks out shared Core commit `361d0e32748be7c01e616d91176a844f805e8a08` into `.tools/core-source`, and restores pinned packages from NuGet. It needs Git, internet access and an existing Git login with read access to the private Core repository. Private NuGet credentials are not required. Windows needs the Edge WebView2 runtime. No system PATH or system SDK is changed by the script. Native CI access configuration is documented in the [comparison setup](../winforms-notes/README.md).
 
 The default data directory is `%LOCALAPPDATA%/BAT.Reset.NotesExperiment`. To choose an isolated review folder:
 

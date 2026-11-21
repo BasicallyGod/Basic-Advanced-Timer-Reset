@@ -22,6 +22,8 @@ The new WinForms shell uses the same TOAST UI editor, CSS, Markdown input rules,
 
 An early test launched two processes against the fixture directory. Those runs were discarded for capture/timing conclusions; both were closed and the single-instance checks above were repeated. The final harness enforces one instance per data directory.
 
+Clean-runner CI revealed that Basic-Timer-Core is private; earlier assumptions about anonymous source access were incorrect. Local builds use the existing authorized checkout. Native CI now explicitly requires a read-only Core token and opt-in variable, and otherwise skips its native job. Public editor/foundation checks remain independent. No private source was vendored or repository visibility changed.
+
 ## What this resolves and what remains
 
 This provides a Windows route that combines painting and exposed native document structure with the existing writing engine. It is sufficient to stop treating the Avalonia integration as the only viable route. Prefer direct WebView2 in the Windows implementation-plan candidate, and preserve the tested Core boundary.
