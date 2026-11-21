@@ -27,7 +27,7 @@ For optional browser regression checks, install the pinned dev dependency with `
 
 ## Next work
 
-Evaluate a small native writing slice alongside the existing clock/ledger boundary: direct capture, Markdown editing and undo, autosave/recovery, resizing, and return to the same time block and note. Test Windows focus, clipboard and 1080p at 125% scaling before choosing the desktop/editor stack and writing the staged implementation plan.
+Follow the [Windows-first implementation plan](docs/implementation-plan.md), beginning with W01: a production frame joining direct capture, a persisted note/reminder and the Core clock. The [platform decision](docs/decisions/0002-windows-first-delivery.md) records the user's Windows-first priority, proposed host composition and remaining validation gates.
 
 The original [desktop application](https://github.com/BasicallyGod/Basic-Advanced-Timer) and [shared Core](https://github.com/BasicallyGod/Basic-Timer-Core) remain the source references. Their selected commits and observed dependency versions are pinned in the baseline. This repository does not yet modify their schemas or import user data.
 

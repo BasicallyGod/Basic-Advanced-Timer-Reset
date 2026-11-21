@@ -1,6 +1,6 @@
 # Basic’s Advanced Timer Design Specification
 
-**Version 1.16 · 21 November 2026 · Working specification**
+**Version 1.17 · 21 November 2026 · Working specification**
 
 BAT combines dependable time recording and timesheet review with a capable, searchable notes library. Accounts and reminders connect those workflows. Each workspace must remain useful independently, and the shared working-day timeline must keep recorded work and outstanding reminders understandable together.
 
@@ -287,7 +287,7 @@ The recording default and the account model are resolved at the product level. T
 | O10 | What remains due after sleep, restart, an obscured toast or a missed scheduled time? How are actual local time, timezone changes and clock changes handled? | Trusting native reminder delivery and background operation. |
 | O11 | How should frequent quick reminders and urgent quick notes be exposed without forcing either through the other workflow? Test prominence, distinct labelled actions and shortcuts, contextual prefilling, draft-preserving recovery and compact pill sizing. Reminder-first frequency is a user-informed design assumption; the final entry-point arrangement is unresolved. | The next quick-capture prototype and final pill/shortcut implementation. |
 | O12 | Which seasonal moments, motifs and Easter eggs suit the reset, where should they appear, and what visibility preferences and delivery timing are appropriate? Preserve operational clarity, compact sizing, Light/Dark legibility and reduced-motion behaviour. | Seasonal presentation and implementation planning. |
-| O13 | Which desktop/shared-package source baseline, reuse boundaries, UI/editor approach and target versions should underpin the reset? The public repository is BasicallyGod/Basic-Advanced-Timer-Reset; desktop and shared-package commits are pinned in the foundation review. Installed-build comparison, dependency structure, reuse suitability and native editor feasibility remain open. | The implementation plan and application scaffold. |
+| O13 | Which desktop/shared-package source baseline, reuse boundaries, UI/editor approach and target versions should underpin the reset? The public repository is BasicallyGod/Basic-Advanced-Timer-Reset; desktop and shared-package commits are pinned in the foundation review. Windows-first delivery is confirmed; cross-platform support is a distant possibility. Direct Microsoft WebView2 is the preferred Windows host candidate. The proposed thin host/UI composition must pass W01 in the implementation plan; installed-build comparison, storage reuse and remaining native validation are still open. | The implementation plan and application scaffold. |
 
 ### Superseded interaction assumptions
 
@@ -344,6 +344,10 @@ Steps can inform one another. Dependencies in Section 13 govern when a tentative
 - [Earlier display plan covering seasonal decorations and reduced motion](https://github.com/BasicallyGod/Basic-Advanced-Timer/blob/c6d0a67fd3205e355255f9ddf1148f41596f662c/docs/design/eink-display-plan.md), historical design context for seasonal character rather than a commitment to reproduce that appearance.
 - User-supplied editor screenshots informed the discussion. They are not redistributed in this repository; the public interaction references below retain the source context.
 
+### Implementation sequence
+
+The [Windows-first implementation plan](../implementation-plan.md) defines staged delivery and acceptance gates. The [platform decision](../decisions/0002-windows-first-delivery.md) records confirmed delivery priority and the proposed composition to validate in W01. These do not silently resolve the remaining product policies.
+
 ### Native feasibility evidence
 
 The first [native Notes slice](../experiments/native-notes-feasibility.md) tests direct capture, file-backed notes, explicit work links and the pinned Core clock. Its partial results inform O07/O13; it does not settle the stack, storage schema, shortcut choices or open product policies.
@@ -391,5 +395,6 @@ These references inform navigation, search and writing patterns. Their full feat
 | 1.14 | 21 November 2026 | Recorded the native keyboard-focus fix, verified link Apply/Cancel and F6/Tab navigation, and supporting editor-selection regression. Accessibility and broader native feasibility gates remain open; experiment shortcuts do not settle O11. |
 | 1.15 | 21 November 2026 | Recorded native compact-window checks at actual 125% DPI, responsive link fields, explicit editor semantics and the offscreen accessibility/rendering comparison. Physical 1080p, mixed-DPI and assistive-technology gates remain open. |
 | 1.16 | 21 November 2026 | Added the direct Microsoft WebView2 host comparison. Recorded visible writing with native document structure and capture/persistence checks. Recommended it as the stronger Windows host candidate; the production shell and full accessibility validation remain open. |
+| 1.17 | 21 November 2026 | Confirmed Windows-first delivery with distant cross-platform support. Added the staged implementation plan, platform decision and production-frame milestone. Retained explicit gates for accounting, links/storage, native validation and migration. |
 
 For future changes, update the affected requirement and its status, resolve or add the relevant open decision, revise the affected validation scenario and add a brief revision entry. If a prototype temporarily diverges, label the experiment and its intended test rather than silently changing the governing rule.

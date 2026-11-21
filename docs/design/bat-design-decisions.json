@@ -2,12 +2,21 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-21",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.16",
+  "specificationVersion": "1.17",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "windows-first-implementation-plan",
+      "status": "delivery_priority_confirmed_composition_proposed",
+      "plan": "docs/implementation-plan.md",
+      "record": "docs/decisions/0002-windows-first-delivery.md",
+      "decision": "The user confirmed Windows-first delivery; cross-platform support is a distant possibility. Preserve platform boundaries without speculative port implementation.",
+      "proposal": "Use .NET 10 application services, a thin WinForms window host with direct Microsoft WebView2, and responsive web UI. Validate the complete production frame and pill in W01 before accepting the scaffold baseline.",
+      "gates": "O01/O02 accounting, O03/O07 durable links/storage, reminder policies, authenticated native CI, actual native validation and migration remain explicit stage gates."
+    },
     {
       "id": "direct-microsoft-webview2-comparison",
       "status": "preferred_windows_host_candidate",
