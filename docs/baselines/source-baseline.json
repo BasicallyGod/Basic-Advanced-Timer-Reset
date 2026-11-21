@@ -16,7 +16,9 @@
     "sourceCommit": "361d0e32748be7c01e616d91176a844f805e8a08",
     "sourceEvidence": "repository commit fields in both cached NuGet package manifests; database source verified at exact commit",
     "databaseSchema": 7,
-    "behaviourAndMigrationCompatibility": "unverified"
+    "behaviourAndMigrationCompatibility": "unverified",
+    "visibility": "private",
+    "buildAccess": "Existing authorized Git read access is required locally. Native CI is opt-in with a read-only Core token; source visibility is unchanged."
   },
   "runtime": {
     "installedSdkObserved": "8.0.425",
