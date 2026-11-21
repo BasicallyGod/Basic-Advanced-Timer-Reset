@@ -2,12 +2,19 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-21",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.15",
+  "specificationVersion": "1.16",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "direct-microsoft-webview2-comparison",
+      "status": "preferred_windows_host_candidate",
+      "report": "docs/experiments/direct-webview2-host-comparison.md",
+      "finding": "The same editor paints and exposes native document structure together in Microsoft WebView2 WinForms. Native link editing, direct capture with Core timing and persistence were verified.",
+      "remaining": "The comparison shell does not select final product controls or a production UI framework. Screen-reader, full keyboard/clipboard/IME, performance/failure and mixed-display checks remain open."
+    },
     {
       "id": "native-accessibility-and-scaling-check",
       "status": "partial_feasibility_evidence_host_gate_open",

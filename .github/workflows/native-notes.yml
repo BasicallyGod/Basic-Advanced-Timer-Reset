@@ -1,9 +1,9 @@
 name: Native Notes experiment
 on:
   push:
-    paths: ['experiments/**', 'tools/native-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
+    paths: ['experiments/**', 'tools/native-notes.ps1', 'tools/winforms-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
   pull_request:
-    paths: ['experiments/**', 'tools/native-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
+    paths: ['experiments/**', 'tools/native-notes.ps1', 'tools/winforms-notes.ps1', 'tests/check-native-editor.cjs', 'prototypes/vendor/**', 'prototypes/src/editor-rules.js', '.github/workflows/native-notes.yml']
 permissions:
   contents: read
 jobs:
@@ -17,6 +17,9 @@ jobs:
       - name: Run recovery, identity and Core timing checks
         shell: pwsh
         run: ./tools/native-notes.ps1 check
+      - name: Build Microsoft WebView2 host comparison
+        shell: pwsh
+        run: ./tools/winforms-notes.ps1 build
   editor-component:
     runs-on: ubuntu-latest
     steps:

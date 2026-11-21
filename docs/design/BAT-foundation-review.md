@@ -42,6 +42,8 @@ The [first native Notes experiment](../experiments/native-notes-feasibility.md) 
 
 ## New repository
 
+The subsequent [Microsoft WebView2 host comparison](../experiments/direct-webview2-host-comparison.md) combines visible writing with exposed native document structure, using the same editor/store/Core sources. Direct WebView2 is the stronger Windows host candidate on this evidence. The technical WinForms shell does not select the final product interface; full assistive-technology and broader native validation remain open.
+
 The user selected the public repository [BasicallyGod/Basic-Advanced-Timer-Reset](https://github.com/BasicallyGod/Basic-Advanced-Timer-Reset), created on 21 November 2026. Its foundation commit carries the design specification, original brief, foundation review, decision records and selected portable prototype sources. Keep the original application available as the behavioural reference.
 
 The shared Core repository can remain a separate dependency if the review validates that boundary. Pin chosen package versions and record their source provenance. Decide how reset-specific document/reminder storage fits before changing shared schemas or introducing another database abstraction.

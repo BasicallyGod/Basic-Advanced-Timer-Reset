@@ -8,6 +8,7 @@ This repository contains the agreed product direction, source baseline, interact
 - [Foundation review](docs/design/BAT-foundation-review.md): what we can build on and what still needs evidence.
 - [Repository decision](docs/decisions/0001-foundation-and-repository.md) and [source baseline](docs/baselines/source-baseline.json).
 - [Interactive prototypes](prototypes/README.md): dashboard, time entry and Notes.
+- [Windows editor-host comparison](docs/experiments/direct-webview2-host-comparison.md): direct Microsoft WebView2 now combines visible writing with exposed native document structure.
 - [Native Notes experiment](experiments/native-notes/README.md) and [feasibility findings](docs/experiments/native-notes-feasibility.md): a runnable Windows slice with persistent notes and the pinned Core clock.
 
 ## Run the references

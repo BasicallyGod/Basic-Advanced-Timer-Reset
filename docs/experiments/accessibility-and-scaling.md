@@ -29,6 +29,8 @@ The default remains the renderer that paints correctly. Offscreen is an explicit
 
 ## Decision implication
 
+Follow-up: the [direct Microsoft WebView2 comparison](direct-webview2-host-comparison.md) now demonstrates visible writing and exposed native document structure together. It is the stronger Windows host candidate; this does not retroactively pass the Avalonia modes or establish full screen-reader validation.
+
 Retain the Core timing/persistence findings and the keyboard-focus fix. Keep the desktop/editor-host choice open: the tested default paints correctly but has unreliable accessibility inspection, while the offscreen comparison exposes document semantics but fails to paint here. Resolve that boundary, or compare a different host/editor approach, before committing to this writing stack. An actual assistive-technology reading/navigation check and physical mixed-display validation are still needed.
 
 References: [Avalonia accessibility guidance](https://docs.avaloniaui.net/docs/app-development/accessibility), [pinned offscreen option](https://github.com/AvaloniaUI/Avalonia.Controls.WebView/blob/3df9183123403dfb0d079f876bed03f8c8c78353/src/Avalonia.Controls.WebView.Core/Platform/WindowsWebView2EnvironmentRequestedEventArgs.cs), [earlier native feasibility findings](native-notes-feasibility.md).
