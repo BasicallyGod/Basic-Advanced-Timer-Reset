@@ -2,12 +2,20 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-22",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.19",
+  "specificationVersion": "1.20",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "allowed-overlap-and-shared-credit",
+      "status": "confirmed_default_override_controls_pending",
+      "decision": "Allow deliberate overlapping blocks and preserve their original intervals. Count shared elapsed minutes once in the day total. The user selected equal account shares by default, editable later.",
+      "example": "Acme 10:00–11:00 plus Beacon 10:30–11:30 gives 90 day minutes, 45 credited minutes per account.",
+      "prototype": "Dashboard and time-flow Save retain both blocks. Separate work rows keep overlaps selectable; credited labels distinguish original duration. Replacement is optional and explicit. Live recording continues across another committed block.",
+      "remaining": "W02 must implement authoritative C# credit allocation, override editing, persistence/Undo and handoff reconciliation. Repeated-account/project grouping and final export rounding remain O01/O02 details; prototypes deduplicate accounts to avoid extra weight from duplicate rows."
+    },
     {
       "id": "windows-production-frame-progress",
       "status": "running_development_slice_w01_gates_open",
@@ -96,9 +104,9 @@
       "id": "time-entry-interruption-experiment",
       "status": "prototype_proposal_awaiting_user_review",
       "prototype": "bat-time-flow.html",
-      "proposal": "Keep exact time entry and draft placement in the day context. Pause clips the accruing interval and holds unused minutes unscheduled for Resume or Finish. Resuming proposes the held duration from a chosen start. Overlap correction previews precise before/after intervals and explicitly replaces only the overlapping minutes, preserving outside pieces and note links with Undo.",
-      "liveTimerProposal": "The same ledger supports live recording. Applying a correction to a live interval pauses that timer; a live timer stops at the next committed work boundary. These rules and held-remainder behaviour remain open under O01.",
-      "validation": "Browser checks passed for a 25-minute past entry, automatic elapsed accrual, a 30-minute allocation paused after 12 minutes with 18 held, resumed overlap preview, explicit trimming and splitting, note-link preservation, live-timer collisions and boundaries, exact totals, cancellation/Undo, Notes continuity, 320–1024 layouts and no-write restoration. The preview clock is manually advanced.",
+      "proposal": "Keep exact time entry and draft placement in the day context. Pause clips the accruing interval and holds unused minutes unscheduled for Resume or Finish. Overlapping Save keeps both records with equal account shares; an explicit Replace instead action previews the optional trim/split correction, preserving outside pieces and note links with Undo.",
+      "liveTimerProposal": "Live recording continues across overlapping work. An explicit replacement affecting the live interval pauses it in this experiment; pause/remainder and correction details remain proposals under O01.",
+      "validation": "Browser checks cover manual past/ahead work, elapsed accrual, 12-minute pause with 18 held, optional replacement/splits, retained overlaps with equal credit, live continuation, Undo, reconciled union totals, Notes continuity, restoration and responsive layouts.",
       "nextDecision": "User review of whether held remainders and the proposed overlap correction match their working day. Native timer behaviour and range animation still require implementation and validation."
     },
     {
@@ -118,7 +126,7 @@
       "proposal": "Use a realistic day with a next-meeting context and direct access to notes, recent work to amend, a primary Add time action and a bounded reminder queue. Keep work, meeting reservations and reminder markers on coordinated tracks, with a focused range and full-day option.",
       "capturePolicy": "Use the last recorded entry as a starting suggestion for manual time entry, while requiring account selection and explicit submission. Do not treat an unallocated gap as recorded work automatically.",
       "prototype": "bat-day-dashboard.html",
-      "validation": "Browser checks cover eight accounts and eleven seeded blocks, three meetings including overlapping reservations, time capture/editing and work-overlap rejection, meeting changes and notes without extra recorded hours, independent note retrieval, reminder moves and reversal, saved-state restoration and 320–1024 pixel layouts.",
+      "validation": "Browser checks cover eight accounts and eleven seeded blocks, three meetings including overlapping reservations, time capture/editing and retained work overlaps, shared credited time and separate work rows, meeting changes and notes without extra recorded hours, independent note retrieval, reminder moves and reversal, saved-state restoration and 320–1024 pixel layouts.",
       "remainingDesign": "User review of landing usefulness and hierarchy. The prototype uses a fixed clock and sample data; native timing, recurrence, dragging, notification delivery, budgets and weekly handoff remain separate work."
     },
     {
@@ -204,10 +212,10 @@
     },
     {
       "id": "planned-time-recording-and-overlap",
-      "status": "confirmed_recording_default_pause_and_conflict_interactions_to_validate",
-      "decision": "Work placed ahead becomes recorded automatically as its time passes unless the user specifies otherwise. Do not require a second confirmation. Keep normal retrospective correction available. Treat overlapping recorded blocks as incorrect by default; overlapping meeting reservations are allowed because they do not automatically commit recorded work.",
+      "status": "confirmed_automatic_recording_and_allowed_overlap",
+      "decision": "Work placed ahead becomes recorded automatically as its time passes unless the user changes it. No second confirmation. Allow overlapping work blocks, retain original intervals and split shared elapsed credit equally between accounts by default, editable later. Meeting reservations contribute no recorded work automatically.",
       "pauseProposal": "Explore a clearer pause control integrated with the existing timer to indicate interruption or early finish. Which block it affects, what happens to the remainder and how resume works remain open in O01.",
-      "remainingDesign": "Resolve collisions between manually entered work, automatically elapsed blocks and live recording without silent double counting or data loss. The default against recorded overlap can be revisited explicitly.",
+      "remainingDesign": "Pause/remainder/resume, optional destructive correction, allocation override controls, project grouping and rounding remain open. The earlier default treating overlaps as incorrect is superseded.",
       "validation": "Allow a future 10:00–10:30 block to become recorded without another prompt, then correct it. Test early finish and pause, a live-timer collision, manual overlap and two overlapping meeting reservations."
     }
   ]
