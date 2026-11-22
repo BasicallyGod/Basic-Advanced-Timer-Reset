@@ -16,12 +16,14 @@ const server=http.createServer((req,res)=>{
     page.on('pageerror',e=>errors.push(e.message));
     await page.addInitScript(()=>{
       let receive;
-      window.commands=JSON.parse(sessionStorage.getItem('test-commands')||'[]');window.failSave=false;
+      window.commands=JSON.parse(sessionStorage.getItem('test-commands')||'[]');window.failSave=false;window.quitResults=[];
       const snapshot=()=>JSON.parse(localStorage.getItem('test-host')||'null')||{workspace:{format:1,revision:0,notes:[],reminders:[],sessions:[],active:null,lastSeen:null},activeAccount:null,elapsedSeconds:0,now:'2026-11-21T10:45:00',notice:null};
       window.chrome={webview:{addEventListener:(name,handler)=>receive=handler,postMessage:async request=>{
         commands.push(request);sessionStorage.setItem('test-commands',JSON.stringify(commands));const state=snapshot();let ok=true,error=null;
         const p=request.payload;
         if(request.type==='host.ready'){receive({data:{type:'state',payload:state}});return;}
+        if(request.type==='host.quit'){receive({data:{type:'prepareQuit',payload:true}});return;}
+        if(request.type==='host.quitReady'){quitResults.push(p.ok);return;}
         if(request.type==='note.create')state.workspace.notes.unshift({id:crypto.randomUUID(),revision:0,title:'',account:p.account,body:'',updated:new Date().toISOString()});
         if(request.type==='note.save'){
           const note=state.workspace.notes.find(n=>n.id===p.id);
@@ -85,10 +87,21 @@ const server=http.createServer((req,res)=>{
       assert.equal(await page.getByLabel('Search notes',{exact:true}).isVisible(),true);
       await page.locator('.note-row').click();
     }
+    await page.evaluate(()=>{failSave=true;});
+    await writing.click();await page.keyboard.press('Control+End');await page.keyboard.insertText(' saved before quitting');
+    await page.getByRole('button',{name:'Quit',exact:true}).click();
+    await page.waitForFunction(()=>quitResults.length===1);
+    assert.equal(await page.evaluate(()=>quitResults[0]),false,'failed save must prevent quitting');
+    assert((await page.evaluate(id=>JSON.parse(localStorage.getItem('bat-draft:'+id)).body,firstId)).includes('saved before quitting'));
+    await page.evaluate(()=>{failSave=false;});
+    await page.getByRole('button',{name:'Quit',exact:true}).click();
+    await page.waitForFunction(()=>quitResults.length===2);
+    assert.equal(await page.evaluate(()=>quitResults[1]),true,'quit is acknowledged only after saving');
+    assert((await page.evaluate(()=>JSON.parse(localStorage.getItem('test-host')).workspace.notes[0].body)).includes('saved before quitting'));
     const commands=await page.evaluate(()=>commands);
     assert(commands.filter(c=>c.type==='note.save').every(c=>c.payload.id===firstId));
     assert.equal(commands.filter(c=>c.type==='timer.toggle').length,1);
     assert.deepEqual(errors,[]);
-    console.log('PASS: complete frame direct reminder/note capture, body/account retrieval, link editing, failure draft/retry, stable restart identity, independent recording and 600/420px layouts. Host is mocked; native evidence remains separate.');
+    console.log('PASS: complete frame direct capture, retrieval, link editing, failure draft/retry, stable restart identity, independent recording, save-gated quitting and 600/420px layouts. Host is mocked; native evidence remains separate.');
   } finally {await browser.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});

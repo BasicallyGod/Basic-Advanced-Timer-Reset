@@ -27,7 +27,7 @@ The development editor started from the verified experiment and uses the existin
 
 ## Review controls and recovery
 
-Ctrl+Alt+N opens the full note editor; Ctrl+Alt+R opens the independent reminder form. Bindings are provisional under O11, and registration conflicts produce a tray notice. F6 moves between writing and note title. Ctrl+K edits a source link. F9 cycles 1100/600/420 logical-pixel review widths. Ctrl+Shift+Q or the tray Quit command flushes writing before quitting; the close button hides BAT to its provisional pill. The pill has a taskbar entry during this validation stage.
+Ctrl+Alt+N opens the full note editor; Ctrl+Alt+R opens the independent reminder form. Bindings are provisional under O11, and registration conflicts produce a tray notice. F6 moves between writing and note title. Ctrl+K edits a source link. F9 cycles 1100/600/420 logical-pixel review widths. Quit is visible in the main header and pill, and is also available from the tray or Ctrl+Shift+Q. Both window close buttons quit. Every quit route flushes writing before exiting; Minimise to pill is the explicit background action. The pill has a taskbar entry during this validation stage.
 
 Creating a file named `simulate-save-failure` inside the selected development data directory makes writes fail deliberately. The editor retains its draft, reports Not saved, and exposes Retry save. Remove only that marker and retry. Recovery drafts are scoped to this app's private WebView profile; acknowledged Markdown and metadata live in `workspace.dev.json`. Incomplete `.pending` files never replace a committed workspace. A corrupt primary is retained separately before a complete `.bak` is recovered. Unknown formats stop loading/writing and preserve files.
 

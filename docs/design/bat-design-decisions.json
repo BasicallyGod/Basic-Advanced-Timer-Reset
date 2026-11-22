@@ -1,8 +1,8 @@
 {
   "project": "Basic's Advanced Timer reset",
-  "updated": "2026-11-21",
+  "updated": "2026-11-22",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.18",
+  "specificationVersion": "1.19",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",

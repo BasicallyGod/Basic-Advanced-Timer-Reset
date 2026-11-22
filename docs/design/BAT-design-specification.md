@@ -1,6 +1,6 @@
 # Basic’s Advanced Timer Design Specification
 
-**Version 1.18 · 21 November 2026 · Working specification**
+**Version 1.19 · 22 November 2026 · Working specification**
 
 BAT combines dependable time recording and timesheet review with a capable, searchable notes library. Accounts and reminders connect those workflows. Each workspace must remain useful independently, and the shared working-day timeline must keep recorded work and outstanding reminders understandable together.
 
@@ -64,6 +64,8 @@ The early one-reminder-per-note prototype is a temporary simplification. It is n
 ## 4 Desktop presence and entry points
 
 **R03 — Keep the pill compact.** Provide clear, distinct access to creating a reminder, Quick note, Add time and the reminder queue. Retain a useful outstanding-reminder count. Creating a reminder must be directly reachable without opening Notes first. Keep the bat identity and product character; use display effects selectively for short readouts and readable type for controls and content. Final placement and prominence are subject to O11.
+
+Provide a visible Quit action in the main window and pill. Window close buttons quit; Minimise to pill explicitly keeps BAT running. All quit routes save pending note edits and the recording checkpoint before exiting. A failed save keeps BAT open with the draft and a retry path, rather than silently discarding writing.
 
 **R04 — Support manual and live workflows.** Manual time entry is a primary action. Live recording, pause/resume, account switching and break handling remain accessible. The pill can foreground active tracking controls when recording is in use; it should accommodate someone who rarely uses the account scroller or play controls.
 
@@ -397,5 +399,6 @@ These references inform navigation, search and writing patterns. Their full feat
 | 1.16 | 21 November 2026 | Added the direct Microsoft WebView2 host comparison. Recorded visible writing with native document structure and capture/persistence checks. Recommended it as the stronger Windows host candidate; the production shell and full accessibility validation remain open. |
 | 1.17 | 21 November 2026 | Confirmed Windows-first delivery with distant cross-platform support. Added the staged implementation plan, platform decision and production-frame milestone. Retained explicit gates for accounting, links/storage, native validation and migration. |
 | 1.18 | 21 November 2026 | Added the running Windows production-frame slice and its [evidence](../experiments/windows-production-frame.md): independent capture, revision-acknowledged note/reminder persistence, Core clock, failure recovery and responsive writing. W01 remains in progress; development snapshot/restart behaviour does not settle production storage, planned-work or capture policies. |
+| 1.19 | 22 November 2026 | Added visible Quit actions in both surfaces after user feedback that exiting was undiscoverable. Window close buttons now quit; Minimise to pill remains explicit. Quit preserves the save/checkpoint gate and stays open on failure. |
 
 For future changes, update the affected requirement and its status, resolve or add the relevant open decision, revise the affected validation scenario and add a brief revision entry. If a prototype temporarily diverges, label the experiment and its intended test rather than silently changing the governing rule.

@@ -43,11 +43,11 @@ internal sealed class WorkspaceWindow : Form
         AutoScaleDimensions = new(96, 96); AutoScaleMode = AutoScaleMode.Dpi;
         Controls.Add(web);
         ResizeEnd += (_, _) => WriteLayoutDiagnostics();
-        pill = new(ActivateWorkspace, () => OpenCapture("reminder"), () => OpenCapture("note"));
+        pill = new(ActivateWorkspace, () => OpenCapture("reminder"), () => OpenCapture("note"), RequestQuit);
         var menu = new ContextMenuStrip(); menu.Items.Add("Open BAT", null, (_, _) => ActivateWorkspace());
         menu.Items.Add("New reminder", null, (_, _) => OpenCapture("reminder"));
         menu.Items.Add("Quick note", null, (_, _) => OpenCapture("note"));
-        menu.Items.Add("Quit development BAT", null, (_, _) => { quitting = true; Close(); });
+        menu.Items.Add("Quit BAT", null, (_, _) => RequestQuit());
         tray = new() { Icon = SystemIcons.Application, Text = "BAT Reset development", Visible = true, ContextMenuStrip = menu };
         tray.DoubleClick += (_, _) => ActivateWorkspace();
         Load += async (_, _) => await Initialise();
@@ -58,7 +58,7 @@ internal sealed class WorkspaceWindow : Form
         };
         FormClosing += (_, e) =>
         {
-            if (!quitting) { e.Cancel = true; ShowPill(); return; }
+            quitting = true;
             if (quitApproved || !ready) return;
             e.Cancel = true; _ = Event("prepareQuit", true);
         };
@@ -88,7 +88,7 @@ internal sealed class WorkspaceWindow : Form
                     var request = JsonSerializer.Deserialize<Request>(raw, WorkspaceService.Json) ?? throw new JsonException("Empty command.");
                     if (request.Type == "host.ready") { ready = true; await Event("state", service.Read()); if (pendingCapture is not null) { await Event("capture", pendingCapture); pendingCapture = null; } return; }
                     if (request.Type == "host.hide") { ShowPill(); return; }
-                    if (request.Type == "host.quit") { quitting = true; Close(); return; }
+                    if (request.Type == "host.quit") { RequestQuit(); return; }
                     if (request.Type == "host.focus") { web.Focus(); await Event("reply", new Reply(request.RequestId, true, service.Read())); return; }
                     if (request.Type == "host.resize")
                     {
@@ -146,6 +146,7 @@ internal sealed class WorkspaceWindow : Form
         WriteLayoutDiagnostics();
     }
     private void ShowPill() { pill.Show(); Hide(); WriteLayoutDiagnostics(); }
+    private void RequestQuit() { quitting = true; Close(); }
     private void OpenCapture(string kind) { ActivateWorkspace(); if (!ready) pendingCapture = kind; else _ = Event("capture", kind); }
     protected override void WndProc(ref Message m)
     {
@@ -159,18 +160,20 @@ internal sealed class WorkspaceWindow : Form
 internal sealed class PillWindow : Form
 {
     private readonly Button open = new() { AutoSize = true, Text = "BAT" };
-    public PillWindow(Action activate, Action reminder, Action note)
+    public PillWindow(Action activate, Action reminder, Action note, Action quit)
     {
         Text = "BAT capture pill"; FormBorderStyle = FormBorderStyle.FixedSingle; ShowInTaskbar = true; TopMost = true;
-        AutoScaleDimensions = new(96, 96); AutoScaleMode = AutoScaleMode.Dpi; ClientSize = new(360, 48);
+        AutoScaleDimensions = new(96, 96); AutoScaleMode = AutoScaleMode.Dpi; ClientSize = new(420, 48);
         StartPosition = FormStartPosition.Manual;
         var row = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new(6), WrapContents = false };
         var add = new Button { Text = "+ Reminder", AutoSize = true };
         var write = new Button { Text = "Quick note", AutoSize = true };
+        var exit = new Button { Text = "Quit", AccessibleName = "Quit BAT", AutoSize = true };
         open.Click += (_, _) => activate(); add.Click += (_, _) => reminder(); write.Click += (_, _) => note();
-        row.Controls.AddRange([open, add, write]); Controls.Add(row);
+        exit.Click += (_, _) => quit();
+        row.Controls.AddRange([open, add, write, exit]); Controls.Add(row);
         Shown += (_, _) => { var area = Screen.FromPoint(Cursor.Position).WorkingArea; Location = new(area.Right - Width - 20, area.Top + 20); };
-        FormClosing += (_, e) => { e.Cancel = true; activate(); };
+        FormClosing += (_, e) => { e.Cancel = true; quit(); };
     }
     public void UpdateState(Snapshot state)
     {

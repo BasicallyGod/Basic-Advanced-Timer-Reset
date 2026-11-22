@@ -203,6 +203,7 @@ document.querySelector('.brand').onclick=e=>{e.preventDefault();setView('timeshe
 for (const id of ['quick-note','new-note','empty-create','call-note']) $(id).onclick=()=>capture('note');
 $('quick-reminder').onclick=()=>capture('reminder');
 $('compact').onclick=async()=>{if(await flush()) notify('host.hide');};
+$('quit').onclick=()=>notify('host.quit');
 $('timer-toggle').onclick=async()=>{try{await post('timer.toggle',{account:$('timer-account').value});}catch(e){banner(e.message);}};
 $('note-title').oninput=changed;$('note-account').onchange=changed;$('retry').onclick=flush;
 $('search').oninput=renderNotes;$('account-filter').onchange=renderNotes;
