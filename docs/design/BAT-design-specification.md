@@ -1,6 +1,6 @@
 # Basic’s Advanced Timer Design Specification
 
-**Version 1.21 · 24 November 2026 · Working specification**
+**Version 1.22 · 24 November 2026 · Working specification**
 
 BAT combines dependable time recording and timesheet review with a capable, searchable notes library. Accounts and reminders connect those workflows. Each workspace must remain useful independently, and the shared working-day timeline must keep recorded work and outstanding reminders understandable together.
 
@@ -93,6 +93,8 @@ Feedback from continued use of the Store version on 24 November reinforces fast 
 - **Precise reminder capture:** reaffirm direct access to a short reminder, account and specific time. Attaching capture to the pill must preserve its speed and precision, including the accepted hour/minute adjustment interaction. Opening Notes or the full dashboard must not become a prerequisite.
 
 **Smallest comparison to prototype:** a timeline-led landing page with a few recognisable recent-note previews and no permanent account column; a pill showing a clock with optional recording controls; and one attached reminder drawer. Compare these in a narrow work area and while another application has focus. Test capture, cancellation, switching to Quick note and return to the compact pill without lost drafts or a new mandatory setup step. Final controls, animation and attachment behaviour remain O09/O11 work.
+
+The `bat-gadget.html` browser comparison now joins those surfaces. BAT tucks away/restores the workspace; Reminder expands an attached action/account/day/time drawer; the timer icon reveals optional recording controls. Cancel and switching to Quick note retain the reminder draft. Saving a reminder updates the same queue/marker records without creating a note. Recent-note cards reopen existing documents, including newly captured writing. Hour/minute wheel and arrow keys, direct typing, midnight rollover, draft restoration, reduced motion and 320–1024 pixel layouts have browser checks. The clock is fictional and fixed, and the elapsed recording display is a presentation simulation. Native attachment, monitor placement, global focus and actual recording integration remain gates; this comparison does not accept the final pill or dashboard design.
 
 ## 5 Time entry and timeline interaction
 
@@ -416,5 +418,6 @@ These references inform navigation, search and writing patterns. Their full feat
 | 1.19 | 22 November 2026 | Added visible Quit actions in both surfaces after user feedback that exiting was undiscoverable. Window close buttons now quit; Minimise to pill remains explicit. Quit preserves the save/checkpoint gate and stays open on failure. |
 | 1.20 | 22 November 2026 | Superseded overlap rejection: retain overlapping work and count shared elapsed minutes once, split equally between accounts by default and editable later. Updated dashboard/time-flow references with union/account credit, separate overlap rows, direct Save, optional replacement and live continuation. Native credited-ledger integration and allocation override controls remain W02 work. |
 | 1.21 | 24 November 2026 | Recorded Store-use feedback: explore a timeline-led landing without a permanent account column, recent-note previews, clock/optional-timer presentation and attached pill drawers. Reaffirmed immediate precise reminder capture. Layout, timer redesign and gadget-like expansion remain proposals under O09/O11; live tracking and independent Notes workflows remain supported. |
+| 1.22 | 24 November 2026 | Added the connected pill/dashboard comparison, preserving the earlier references. Browser checks cover independent reminder/note capture, retained drafts, exact wheel/typed times, date rollover, recent-note reopening, recording-context continuity and compact/reduced-motion layouts. Native gadget behaviour and final presentation remain unaccepted. |
 
 For future changes, update the affected requirement and its status, resolve or add the relevant open decision, revise the affected validation scenario and add a brief revision entry. If a prototype temporarily diverges, label the experiment and its intended test rather than silently changing the governing rule.

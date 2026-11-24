@@ -2,12 +2,20 @@
   "project": "Basic's Advanced Timer reset",
   "updated": "2026-11-24",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.21",
+  "specificationVersion": "1.22",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "connected-pill-dashboard-comparison",
+      "status": "browser_comparison_ready_for_user_review",
+      "prototype": "bat-gadget.html",
+      "scope": "Timeline-led landing, bounded due queue and recognisable recent-note previews, clock/optional-recording pill and one attached exact reminder drawer.",
+      "evidence": "Browser checks cover hour/minute wheel and arrow adjustment, direct typing, midnight rollover, reminder identity on move, cancel/capture draft retention, full Quick note while recording state stays active, same-note reopening, recording-account continuity, 320–1024 widths, reduced motion and no-write saved-state restoration.",
+      "limits": "Fictional fixed clock, presentation-only elapsed recording and memory-only preview persistence. Native global focus, window attachment/placement, notifications and accounting integration remain unverified. Prior design references remain unchanged."
+    },
     {
       "id": "store-use-dashboard-clock-and-attached-pill",
       "status": "user_feedback_proposals_to_explore",

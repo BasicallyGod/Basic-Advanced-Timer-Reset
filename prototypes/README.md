@@ -7,8 +7,11 @@ Build with `npm run build:prototypes`, then `npm run preview` from the repositor
 | Working day | Timeline, meetings, bounded reminder queue, recent work and links to Notes. |
 | Time entry | Unified Add time, past/future inference, placement preview and allowed shared time and proposed interruption handling. Use the separate preview clock to advance time. |
 | Notes library | Direct writing, account home/related routes, nested tags, body search and note links. |
+| Connected pill and dashboard | Clock with optional recording controls, an attached reminder drawer, independent Quick note and recognisable recent-note previews. Click BAT to tuck away/restore the workspace. |
 
 The wrappers supply a minimal host-state adapter, held in memory until the page is reloaded. They do not provide durable autosave. The editor and clock are design references; native integration, storage, global shortcuts, notifications, timeline range animation and direct block dragging remain unproven.
+
+Run `npm run test:gadget` for the connected comparison's capture, hour/minute wheel, midnight rollover, retained drafts, Notes reopening, recording-context continuity, responsive and reduced-motion checks. Its clock is fixed to the fictional working day; the optional elapsed readout is a presentation simulation and does not create recorded ledger blocks. Desktop attachment, other-app/global focus and monitor behaviour still require native testing. This comparison leaves the earlier references intact and does not select the final pill design.
 
 The canonical design specification takes precedence over these experiments. In particular, overlap is allowed and shared elapsed minutes are split equally between accounts by default. Pause/remainder mechanics, optional destructive replacement and credit-override controls remain open. The current browser references show default credit; editable allocation and authoritative C# credit integration are W02 work. Run `node tests/check-shared-time.cjs` for interval/account reconciliation checks. The dashboard and Notes entry routes also predate the latest quick-reminder hierarchy decision (O11).
 
