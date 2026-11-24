@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
-const skip = new Set(['.git', 'node_modules', 'generated', 'artifacts']);
+const skip = new Set(['.git', '.tools', 'bin', 'obj', 'node_modules', 'generated', 'artifacts']);
 function walk(dir) {
   return fs.readdirSync(dir, {withFileTypes:true}).flatMap(entry => skip.has(entry.name) ? [] : entry.isDirectory() ? walk(path.join(dir,entry.name)) : [path.join(dir,entry.name)]);
 }

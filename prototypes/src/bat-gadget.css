@@ -1,0 +1,37 @@
+#bat-gadget .gadget-host{background:var(--paper);border:1px solid var(--line);border-radius:24px;max-width:100%;width:fit-content;margin:0 auto 20px;overflow:hidden;box-shadow:0 8px 28px light-dark(#26382b0c,#00000024);transition:border-radius .2s ease}
+#bat-gadget .gadget-host[data-open=true]{border-radius:20px;width:min(460px,100%)}
+#bat-gadget .gadget-bar{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:8px 10px}
+#bat-gadget .gadget-bar button{border:0;border-radius:15px;padding:6px 9px;white-space:nowrap}
+#bat-gadget .gadget-clock{font-size:20px;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.04em;padding-right:9px}
+#bat-gadget .gadget-brand{font-weight:500;letter-spacing:.06em}
+#bat-gadget .gadget-count{font-variant-numeric:tabular-nums}
+#bat-gadget .gadget-count span{background:var(--active);border-radius:20px;min-width:22px}
+#bat-gadget .gadget-tracking{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:9px 14px;background:var(--side);flex-wrap:wrap}
+#bat-gadget .gadget-tracking select{width:auto;max-width:45%;font-size:12px;padding:5px}
+#bat-gadget .gadget-tracking .timer-readout{font-variant-numeric:tabular-nums;font-size:12px;flex:1}
+#bat-gadget .recording-active{box-shadow:inset 0 0 0 2px var(--strong)}
+#bat-gadget .gadget-drawer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .22s ease}
+#bat-gadget .gadget-host[data-open=true] .gadget-drawer{grid-template-rows:1fr}
+#bat-gadget .gadget-drawer>div{min-height:0;overflow:hidden}
+#bat-gadget [data-gadget-form]{padding:15px 18px 17px;display:grid;gap:12px;border-top:1px solid var(--line)}
+#bat-gadget .drawer-heading,#bat-gadget .drawer-footer{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#bat-gadget .drawer-footer{justify-content:flex-end}
+#bat-gadget [data-gadget-form] label{font-size:12px}
+#bat-gadget .gadget-schedule{display:grid;grid-template-columns:minmax(0,1fr) minmax(115px,.7fr);gap:14px;align-items:end}
+#bat-gadget .gadget-time{display:flex;align-items:center;gap:4px;margin-top:5px}
+#bat-gadget .gadget-time input{width:50%;text-align:center;font-size:23px;font-variant-numeric:tabular-nums;padding:7px 4px}
+#bat-gadget .gadget-note-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#bat-gadget button.gadget-note-card{padding:15px 13px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;justify-content:flex-start;text-align:left;background:var(--paper);min-width:0;min-height:177px;white-space:normal;border-radius:9px}
+#bat-gadget .gadget-note-card strong{font-size:15px;font-weight:500;overflow-wrap:anywhere}
+#bat-gadget .note-context{display:flex;gap:5px;align-items:center;color:var(--muted);font-size:11px;flex-wrap:wrap}
+#bat-gadget .note-excerpt{font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+#bat-gadget .has-quote .note-excerpt{color:var(--ink);font-style:italic}
+#bat-gadget .note-open{display:flex;gap:4px;align-items:center;font-size:11px;margin-top:auto;color:var(--strong)}
+#bat-gadget .gadget-queue-heading{display:flex;justify-content:space-between;gap:8px;align-items:center}
+#bat-gadget .queue{max-height:320px;overflow:auto}
+#bat-gadget .queue-row{padding:10px 0}
+#bat-gadget .day-grid{grid-template-columns:minmax(0,1fr) 235px;column-gap:20px}
+#bat-gadget .app[hidden]{display:none!important}
+@media(max-width:850px){#bat-gadget .gadget-note-cards{grid-template-columns:1fr}#bat-gadget button.gadget-note-card{min-height:0;gap:6px}#bat-gadget .note-excerpt{-webkit-line-clamp:2}#bat-gadget .note-open{display:none}}
+@media(max-width:620px){#bat-gadget .day-grid{grid-template-columns:minmax(0,1fr)}#bat-gadget .gadget-bar{justify-content:center;gap:2px}#bat-gadget .gadget-bar button{padding:6px}#bat-gadget .gadget-clock{font-size:18px;padding-right:3px}#bat-gadget .gadget-bar [data-gadget=note] span{display:none}#bat-gadget .gadget-host{margin-left:auto;margin-right:auto}#bat-gadget [data-gadget-form]{padding:12px}#bat-gadget .queue{max-height:290px}}
+@media(prefers-reduced-motion:reduce){#bat-gadget .gadget-host,#bat-gadget .gadget-drawer{transition:none}}

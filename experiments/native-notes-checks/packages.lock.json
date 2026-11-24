@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "BasicallyGod.Timer.Core": {
+        "type": "Project"
+      }
+    }
+  }
+}

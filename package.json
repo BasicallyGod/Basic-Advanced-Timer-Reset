@@ -10,7 +10,10 @@
     "validate": "node tools/validate.cjs",
     "build:prototypes": "node tools/build-prototypes.cjs",
     "preview": "node tools/serve-prototypes.cjs",
-    "test:prototypes": "node tests/check-bat-day-dashboard.cjs && node tests/check-bat-time-flow.cjs && node tests/check-bat-notes-library.cjs"
+    "test:prototypes": "node tests/check-shared-time.cjs && node tests/check-bat-day-dashboard.cjs && node tests/check-bat-time-flow.cjs && node tests/check-bat-notes-library.cjs",
+    "test:native-editor": "node tests/check-native-editor.cjs",
+    "test:frame": "node tests/check-production-frame.cjs",
+    "test:gadget": "node tests/check-bat-gadget.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

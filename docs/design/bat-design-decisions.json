@@ -1,13 +1,86 @@
 {
   "project": "Basic's Advanced Timer reset",
-  "updated": "2026-11-21",
+  "updated": "2026-11-24",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.12",
+  "specificationVersion": "1.22",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "connected-pill-dashboard-comparison",
+      "status": "browser_comparison_ready_for_user_review",
+      "prototype": "bat-gadget.html",
+      "scope": "Timeline-led landing, bounded due queue and recognisable recent-note previews, clock/optional-recording pill and one attached exact reminder drawer.",
+      "evidence": "Browser checks cover hour/minute wheel and arrow adjustment, direct typing, midnight rollover, reminder identity on move, cancel/capture draft retention, full Quick note while recording state stays active, same-note reopening, recording-account continuity, 320–1024 widths, reduced motion and no-write saved-state restoration.",
+      "limits": "Fictional fixed clock, presentation-only elapsed recording and memory-only preview persistence. Native global focus, window attachment/placement, notifications and accounting integration remain unverified. Prior design references remain unchanged."
+    },
+    {
+      "id": "store-use-dashboard-clock-and-attached-pill",
+      "status": "user_feedback_proposals_to_explore",
+      "date": "2026-11-24",
+      "context": "Observations while continuing to use the Store version; no new native or browser interaction is accepted by this feedback.",
+      "dashboard": "Explore a timeline-led landing without a permanent account column, a cleaner bounded reminder queue and recognisable visual recent-note previews. Preserve account context and independent Notes use.",
+      "timeDisplay": "Explore a current-time clock alongside optional elapsed recording. Time awareness can prompt manual logging. Retain live tracking but revisit clunky controls; clock display does not imply recording or automatic attribution.",
+      "pill": "Explore attached drawers/anchored extensions instead of many detached pill popups, creating an adaptable desktop gadget. Compare layout, focus, draft preservation, monitor limits, keyboard access and reduced motion.",
+      "confirmedPriority": "Very fast lightweight reminders assigned to specific times remain core; attached capture must not add a Notes or dashboard prerequisite.",
+      "nextComparison": "Compare the landing proposal, clock-only versus clock-plus-timer pill, and one attached precise reminder drawer. Final arrangement and behaviour remain O09/O11 work."
+    },
+    {
+      "id": "allowed-overlap-and-shared-credit",
+      "status": "confirmed_default_override_controls_pending",
+      "decision": "Allow deliberate overlapping blocks and preserve their original intervals. Count shared elapsed minutes once in the day total. The user selected equal account shares by default, editable later.",
+      "example": "Acme 10:00–11:00 plus Beacon 10:30–11:30 gives 90 day minutes, 45 credited minutes per account.",
+      "prototype": "Dashboard and time-flow Save retain both blocks. Separate work rows keep overlaps selectable; credited labels distinguish original duration. Replacement is optional and explicit. Live recording continues across another committed block.",
+      "remaining": "W02 must implement authoritative C# credit allocation, override editing, persistence/Undo and handoff reconciliation. Repeated-account/project grouping and final export rounding remain O01/O02 details; prototypes deduplicate accounts to avoid extra weight from duplicate rows."
+    },
+    {
+      "id": "windows-production-frame-progress",
+      "status": "running_development_slice_w01_gates_open",
+      "report": "docs/experiments/windows-production-frame.md",
+      "evidence": "Independent direct capture, revision-acknowledged development persistence and Core recording now run in the complete responsive Windows frame. Application recovery checks and mocked-host UI checks pass; native typing/link/failure checks are recorded separately.",
+      "limits": "Fictional timeline examples never enter totals. Development snapshot/checkpoint recovery does not settle O01/O03/O07. Screen-reader, native CI, display/lifecycle and remaining W01 evidence still gate acceptance."
+    },
+    {
+      "id": "windows-first-implementation-plan",
+      "status": "delivery_priority_confirmed_composition_proposed",
+      "plan": "docs/implementation-plan.md",
+      "record": "docs/decisions/0002-windows-first-delivery.md",
+      "decision": "The user confirmed Windows-first delivery; cross-platform support is a distant possibility. Preserve platform boundaries without speculative port implementation.",
+      "proposal": "Use .NET 10 application services, a thin WinForms window host with direct Microsoft WebView2, and responsive web UI. Validate the complete production frame and pill in W01 before accepting the scaffold baseline.",
+      "gates": "O01/O02 accounting, O03/O07 durable links/storage, reminder policies, authenticated native CI, actual native validation and migration remain explicit stage gates."
+    },
+    {
+      "id": "direct-microsoft-webview2-comparison",
+      "status": "preferred_windows_host_candidate",
+      "report": "docs/experiments/direct-webview2-host-comparison.md",
+      "finding": "The same editor paints and exposes native document structure together in Microsoft WebView2 WinForms. Native link editing, direct capture with Core timing and persistence were verified.",
+      "remaining": "The comparison shell does not select final product controls or a production UI framework. Screen-reader, full keyboard/clipboard/IME, performance/failure and mixed-display checks remain open."
+    },
+    {
+      "id": "native-accessibility-and-scaling-check",
+      "status": "partial_feasibility_evidence_host_gate_open",
+      "report": "docs/experiments/accessibility-and-scaling.md",
+      "evidence": "Native 600/420 widths checked at RenderScaling 1.25. Link address stacks at narrow widths. Offscreen mode exposed native document semantics but remained visually blank; default painted correctly but inspection remained unreliable.",
+      "remaining": "Assistive-technology validation, physical 1080p and mixed-DPI movement. No final host choice or system display setting change."
+    },
+    {
+      "id": "native-notes-keyboard-focus-boundary",
+      "status": "verified_experiment_fix",
+      "report": "docs/experiments/native-notes-feasibility.md",
+      "finding": "The pinned Windows WebView adapter leaves ResignFocus empty. Native logical focus could differ from Win32 keyboard focus.",
+      "change": "Reclaim only the experiment window keyboard focus for native controls, excluding WebView descendants. Add F6 writing/native-controls navigation and Enter/Escape link actions.",
+      "validation": "Real Windows input verified immediate URL replacement after Ctrl+A, Enter applying only the link, F6/Tab pane navigation and Escape discarding a provisional URL. The browser component regression verifies handoff messages and editor selection restoration.",
+      "remainingGates": "Rendered-editor accessibility remains unreliable through desktop inspection; full assistive technology, keyboard boundary, clipboard/IME and mixed-DPI checks remain open. O11 final bindings and O13 stack choice are unchanged."
+    },
+    {
+      "id": "native-notes-first-feasibility-slice",
+      "status": "experiment_complete_with_remaining_gates",
+      "report": "docs/experiments/native-notes-feasibility.md",
+      "evidence": "Native capture from another app, autosave/reopening, formatting undo, body search and explicit work links observed. Nine executable recovery/identity/Core-clock checks and the embedded-editor component regression pass.",
+      "limits": "Rendered-editor accessibility, complete native clipboard/link/IME validation, scaling/mixed monitors and broader failure/performance checks remain open. Experiment versions, JSON format, sample block and Ctrl+Alt+N binding do not select production policy."
+    },
     {
       "id": "foundation-and-new-repository-review",
       "status": "repository_established_stack_and_reuse_open",
@@ -50,9 +123,9 @@
       "id": "time-entry-interruption-experiment",
       "status": "prototype_proposal_awaiting_user_review",
       "prototype": "bat-time-flow.html",
-      "proposal": "Keep exact time entry and draft placement in the day context. Pause clips the accruing interval and holds unused minutes unscheduled for Resume or Finish. Resuming proposes the held duration from a chosen start. Overlap correction previews precise before/after intervals and explicitly replaces only the overlapping minutes, preserving outside pieces and note links with Undo.",
-      "liveTimerProposal": "The same ledger supports live recording. Applying a correction to a live interval pauses that timer; a live timer stops at the next committed work boundary. These rules and held-remainder behaviour remain open under O01.",
-      "validation": "Browser checks passed for a 25-minute past entry, automatic elapsed accrual, a 30-minute allocation paused after 12 minutes with 18 held, resumed overlap preview, explicit trimming and splitting, note-link preservation, live-timer collisions and boundaries, exact totals, cancellation/Undo, Notes continuity, 320–1024 layouts and no-write restoration. The preview clock is manually advanced.",
+      "proposal": "Keep exact time entry and draft placement in the day context. Pause clips the accruing interval and holds unused minutes unscheduled for Resume or Finish. Overlapping Save keeps both records with equal account shares; an explicit Replace instead action previews the optional trim/split correction, preserving outside pieces and note links with Undo.",
+      "liveTimerProposal": "Live recording continues across overlapping work. An explicit replacement affecting the live interval pauses it in this experiment; pause/remainder and correction details remain proposals under O01.",
+      "validation": "Browser checks cover manual past/ahead work, elapsed accrual, 12-minute pause with 18 held, optional replacement/splits, retained overlaps with equal credit, live continuation, Undo, reconciled union totals, Notes continuity, restoration and responsive layouts.",
       "nextDecision": "User review of whether held remainders and the proposed overlap correction match their working day. Native timer behaviour and range animation still require implementation and validation."
     },
     {
@@ -72,7 +145,7 @@
       "proposal": "Use a realistic day with a next-meeting context and direct access to notes, recent work to amend, a primary Add time action and a bounded reminder queue. Keep work, meeting reservations and reminder markers on coordinated tracks, with a focused range and full-day option.",
       "capturePolicy": "Use the last recorded entry as a starting suggestion for manual time entry, while requiring account selection and explicit submission. Do not treat an unallocated gap as recorded work automatically.",
       "prototype": "bat-day-dashboard.html",
-      "validation": "Browser checks cover eight accounts and eleven seeded blocks, three meetings including overlapping reservations, time capture/editing and work-overlap rejection, meeting changes and notes without extra recorded hours, independent note retrieval, reminder moves and reversal, saved-state restoration and 320–1024 pixel layouts.",
+      "validation": "Browser checks cover eight accounts and eleven seeded blocks, three meetings including overlapping reservations, time capture/editing and retained work overlaps, shared credited time and separate work rows, meeting changes and notes without extra recorded hours, independent note retrieval, reminder moves and reversal, saved-state restoration and 320–1024 pixel layouts.",
       "remainingDesign": "User review of landing usefulness and hierarchy. The prototype uses a fixed clock and sample data; native timing, recurrence, dragging, notification delivery, budgets and weekly handoff remain separate work."
     },
     {
@@ -158,10 +231,10 @@
     },
     {
       "id": "planned-time-recording-and-overlap",
-      "status": "confirmed_recording_default_pause_and_conflict_interactions_to_validate",
-      "decision": "Work placed ahead becomes recorded automatically as its time passes unless the user specifies otherwise. Do not require a second confirmation. Keep normal retrospective correction available. Treat overlapping recorded blocks as incorrect by default; overlapping meeting reservations are allowed because they do not automatically commit recorded work.",
+      "status": "confirmed_automatic_recording_and_allowed_overlap",
+      "decision": "Work placed ahead becomes recorded automatically as its time passes unless the user changes it. No second confirmation. Allow overlapping work blocks, retain original intervals and split shared elapsed credit equally between accounts by default, editable later. Meeting reservations contribute no recorded work automatically.",
       "pauseProposal": "Explore a clearer pause control integrated with the existing timer to indicate interruption or early finish. Which block it affects, what happens to the remainder and how resume works remain open in O01.",
-      "remainingDesign": "Resolve collisions between manually entered work, automatically elapsed blocks and live recording without silent double counting or data loss. The default against recorded overlap can be revisited explicitly.",
+      "remainingDesign": "Pause/remainder/resume, optional destructive correction, allocation override controls, project grouping and rounding remain open. The earlier default treating overlaps as incorrect is superseded.",
       "validation": "Allow a future 10:00–10:30 block to become recorded without another prompt, then correct it. Test early finish and pause, a live-timer collision, manual overlap and two overlapping meeting reservations."
     }
   ]

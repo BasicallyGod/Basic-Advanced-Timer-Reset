@@ -2,12 +2,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 require('./build-time-flow.cjs');
 require('./build-notes-library.cjs');
+require('./build-gadget.cjs');
 
 const output = path.resolve(__dirname, '../prototypes/generated');
 const titles = {
   'bat-day-dashboard': 'Working day',
   'bat-time-flow': 'Time entry',
   'bat-notes-library': 'Notes library',
+  'bat-gadget': 'Connected pill and dashboard',
 };
 const links = Object.entries(titles).map(([name, title]) => `<a href="${name}.preview.html">${title}</a>`).join(' · ');
 for (const [name, title] of Object.entries(titles)) {
@@ -24,4 +26,4 @@ for (const [name, title] of Object.entries(titles)) {
   fs.writeFileSync(path.join(output, name + '.preview.html'), wrapper);
 }
 fs.writeFileSync(path.join(output, 'index.html'), '<!doctype html><html lang="en"><meta charset="utf-8"><title>BAT design references</title><h1>BAT design references</h1><nav>' + links + '</nav><p>Fictional data and simulated clocks. See the governing specification for accepted and proposed behaviour.</p></html>');
-console.log('Built three standalone previews; serve with npm run preview.');
+console.log('Built four standalone previews; serve with npm run preview.');

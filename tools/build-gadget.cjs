@@ -1,0 +1,10 @@
+const fs=require('node:fs'),path=require('node:path');
+const dir=path.resolve(__dirname,'../prototypes/src'),out=path.resolve(__dirname,'../prototypes/generated');
+let html=fs.readFileSync(path.join(out,'bat-day-dashboard.html'),'utf8').replaceAll('bat-day-dashboard','bat-gadget');
+const insert=(from,to)=>{if(!html.includes(from))throw Error('Missing gadget boundary '+from);html=html.replace(from,to);};
+insert('</style>',fs.readFileSync(path.join(dir,'bat-gadget.css'),'utf8')+'\n</style>');
+insert('recording:state.running}', 'recording:state.running,pillExpanded:state.gadget?.drawer||false,recordingControls:state.gadget?.showTimer||false,workspaceVisible:state.gadget?.showApp??true,recordingAccount:state.gadget?.recordAccount||null}');
+insert('restore(window.openai?.widgetState);render();',fs.readFileSync(path.join(dir,'bat-gadget.js'),'utf8')+'\nrestore(window.openai?.widgetState);render();');
+if(Buffer.byteLength(html)>1000000)throw Error('Gadget exceeds inline size limit');
+fs.writeFileSync(path.join(out,'bat-gadget.html'),html);
+console.log('Built connected pill/dashboard comparison: '+Buffer.byteLength(html)+' bytes');

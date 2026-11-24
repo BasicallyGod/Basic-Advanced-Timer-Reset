@@ -2,12 +2,15 @@
 
 A design-led reset of BAT: trusted timesheets, quick reminders and connected Markdown notes, in a compact desktop application.
 
-This repository is the reset's starting point. It contains the agreed product direction, source baseline and interactive browser experiments. The desktop application is the next stage; its UI/editor stack is awaiting a native feasibility check.
+This repository contains the agreed product direction, source baseline, browser references and a running Windows development frame. Production-frame acceptance, durable production storage and daily-use readiness retain explicit gates.
 
 - [Design specification](docs/design/BAT-design-specification.md): current requirements, accepted behaviour and open decisions.
 - [Foundation review](docs/design/BAT-foundation-review.md): what we can build on and what still needs evidence.
 - [Repository decision](docs/decisions/0001-foundation-and-repository.md) and [source baseline](docs/baselines/source-baseline.json).
 - [Interactive prototypes](prototypes/README.md): dashboard, time entry and Notes.
+- [Windows development frame](src/README.md): build/run commands, direct capture, recoverable notes/reminders and the Core timer.
+- [Windows editor-host comparison](docs/experiments/direct-webview2-host-comparison.md): direct Microsoft WebView2 now combines visible writing with exposed native document structure.
+- [Native Notes experiment](experiments/native-notes/README.md) and [feasibility findings](docs/experiments/native-notes-feasibility.md): a runnable Windows slice with persistent notes and the pinned Core clock.
 
 ## Run the references
 
@@ -25,7 +28,7 @@ For optional browser regression checks, install the pinned dev dependency with `
 
 ## Next work
 
-Evaluate a small native writing slice alongside the existing clock/ledger boundary: direct capture, Markdown editing and undo, autosave/recovery, resizing, and return to the same time block and note. Test Windows focus, clipboard and 1080p at 125% scaling before choosing the desktop/editor stack and writing the staged implementation plan.
+Follow the [Windows-first implementation plan](docs/implementation-plan.md). W01 now has a running frame joining direct capture, a persisted note/reminder and the Core clock; its [evidence and remaining gates](docs/experiments/windows-production-frame.md) distinguish a reviewable build from milestone acceptance. The [platform decision](docs/decisions/0002-windows-first-delivery.md) records the user's Windows-first priority and proposed host composition.
 
 The original [desktop application](https://github.com/BasicallyGod/Basic-Advanced-Timer) and [shared Core](https://github.com/BasicallyGod/Basic-Timer-Core) remain the source references. Their selected commits and observed dependency versions are pinned in the baseline. This repository does not yet modify their schemas or import user data.
 

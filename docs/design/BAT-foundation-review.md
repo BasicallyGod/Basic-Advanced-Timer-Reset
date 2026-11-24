@@ -38,7 +38,11 @@ Test one small native slice before committing the UI/editor stack: open a note f
 
 Include keyboard selection and undo, clipboard behaviour, focus restoration, multiple monitors and 1080p at 125 percent scaling. The HTML prototype demonstrates a writing interaction; its browser editor component does not decide the native editor integration. Compare alternative approaches if this slice exposes a material limitation.
 
+The [first native Notes experiment](../experiments/native-notes-feasibility.md) is now runnable. It establishes direct global capture, saved-note reopening, independent Core timing and atomic snapshot recovery checks. Its link-field keyboard-focus regression is fixed and verified in Windows, including Apply/Cancel and F6 pane navigation. Hosted-editor accessibility, complete source/clipboard and keyboard behaviour, native scale changes and failure handling remain gates. The experiment does not select the final stack or production document schema.
+
 ## New repository
+
+The subsequent [Microsoft WebView2 host comparison](../experiments/direct-webview2-host-comparison.md) combines visible writing with exposed native document structure, using the same editor/store/Core sources. Direct WebView2 is the stronger Windows host candidate on this evidence. The technical WinForms shell does not select the final product interface; full assistive-technology and broader native validation remain open.
 
 The user selected the public repository [BasicallyGod/Basic-Advanced-Timer-Reset](https://github.com/BasicallyGod/Basic-Advanced-Timer-Reset), created on 21 November 2026. Its foundation commit carries the design specification, original brief, foundation review, decision records and selected portable prototype sources. Keep the original application available as the behavioural reference.
 
@@ -48,7 +52,7 @@ The repository starts with a short README, project-specific agent instructions, 
 
 The selected prototype build scripts have been adapted to repository-relative paths, with local vendor files and licences. Generated previews are reproducible and ignored; source references use pinned URLs or repository-relative links. Exclude real databases, settings containing private material, package credentials, published binaries and transient review output.
 
-## Decisions before the implementation plan
+## Remaining foundation gates
 
 1. Complete the installed-app and representative-data comparison. Desktop Alpha, stable and shared-package source commits are now pinned.
 2. Define what is reused, adapted or rebuilt, with test evidence for the ledger and storage boundaries.
@@ -56,7 +60,7 @@ The selected prototype build scripts have been adapted to repository-relative pa
 4. Keep the new repository and governing design material aligned as feasibility evidence arrives.
 5. Resolve the product decisions needed for storage and accounting, then write the staged implementation plan against these boundaries.
 
-Repository preparation and the feasibility slice can overlap. Initial documentation can be placed in the new repo before its application scaffold is final. The public repository is established. The final desktop/editor stack and application scaffold remain open.
+The public repository is established. The user has confirmed Windows-first delivery with cross-platform support a distant possibility. The [implementation plan](../implementation-plan.md) now sequences delivery, beginning with a production-frame milestone using the direct Windows host candidate. The proposed composition must pass that milestone before it becomes the scaffold baseline; remaining product, native-validation and migration decisions stay explicit.
 
 ## Source references
 

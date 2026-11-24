@@ -16,7 +16,9 @@
     "sourceCommit": "361d0e32748be7c01e616d91176a844f805e8a08",
     "sourceEvidence": "repository commit fields in both cached NuGet package manifests; database source verified at exact commit",
     "databaseSchema": 7,
-    "behaviourAndMigrationCompatibility": "unverified"
+    "behaviourAndMigrationCompatibility": "unverified",
+    "visibility": "private",
+    "buildAccess": "Existing authorized Git read access is required locally. Native CI is opt-in with a read-only Core token; source visibility is unchanged."
   },
   "runtime": {
     "installedSdkObserved": "8.0.425",
@@ -27,7 +29,9 @@
   "verification": {
     "legacyReleaseCompile": "passed with existing warnings",
     "legacyTests": "First attempt: testhost connection timeout; zero tests executed. Unsandboxed retry: no completed results; stopped. Native baseline unresolved.",
-    "prototypeChecks": "All three imported browser scenarios passed on 21 November 2026 using Chromium: dashboard/meetings, time-entry totals/undo/collisions, and Notes editing/search/links; responsive widths 320\u20131024."
+    "prototypeChecks": "All three imported browser scenarios passed on 21 November 2026 using Chromium: dashboard/meetings, time-entry totals/undo/collisions, and Notes editing/search/links; responsive widths 320\u20131024.",
+    "nativeNotesSlice": "First native experiment: clean compile; nine persistence/identity/Core timing checks pass against the pinned shared source; rendered-editor component regression passes. Native capture/reopening observed. Accessibility and native scaling gates remain open.",
+    "nativeFocusFollowup": "Native link address focus fixed and verified with real Windows input: Ctrl+A/type/Enter applies only the link; F6/Tab navigation and Escape cancellation pass. Rendered-editor accessibility remains open."
   },
   "resetRepository": {
     "url": "https://github.com/BasicallyGod/Basic-Advanced-Timer-Reset",

@@ -2,7 +2,7 @@
 
 Read `docs/design/BAT-design-specification.md` and `docs/design/BAT-foundation-review.md` before changing behaviour. The specification governs product intent; decision history and prototypes support it. Keep confirmed requirements, experiments and unresolved choices distinct. Record changes against the relevant R/O identifiers and revision history.
 
-Preserve the trusted ledger and explicit, reversible time edits. Use one Add time form; entered times determine past/current/future behaviour. Never add a Past/Ahead mode toggle. O01's pause remainder, resume and collision policies remain proposals until resolved.
+Preserve the trusted ledger and explicit, reversible time edits. Use one Add time form; entered times determine past/current/future behaviour. Never add a Past/Ahead mode toggle. Allow overlapping blocks and preserve their original intervals. Count shared elapsed minutes once, with equal account shares by default, editable later. Do not reject overlaps or trim/stop work automatically. Keep raw durations separate from credited allocations. O01's pause remainder, resume, allocation-override controls and explicit replacement mechanics remain open.
 
 Notes and Timesheets must each work independently. Quick reminders are a short action, account and exact time. Long writing belongs in Notes, with explicit links/reminder actions. Quick note must reach the full editor directly. An ordinary time-block click edits time; note access is explicit.
 

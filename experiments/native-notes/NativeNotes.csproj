@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Bat.Reset.NotesExperiment</AssemblyName>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.6" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.6" />
+    <PackageReference Include="Avalonia.Controls.WebView" Version="12.1.2" />
+    <ProjectReference Include="../../.tools/core-source/src/Timer.Core/Timer.Core.csproj" />
+    <Content Include="Editor/**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../prototypes/vendor/toastui-editor-3.2.2.min.js" Link="Editor/vendor/editor.js" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../prototypes/vendor/LICENSE-toastui-editor.txt" Link="Editor/vendor/LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../prototypes/src/editor-rules.js" Link="Editor/editor-rules.js" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

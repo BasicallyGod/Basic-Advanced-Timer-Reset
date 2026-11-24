@@ -1,6 +1,6 @@
 # Third-party notices
 
-The prototype vendors the following browser assets, copied from the design environment on 21 November 2026. They remain separate from the unselected desktop stack.
+The repository vendors the following browser assets, copied from the design environment on 21 November 2026. The development Windows frame also packages the TOAST UI Editor asset and its MIT notice. Lucide remains a prototype dependency.
 
 | Component | Version | Licence | Files |
 | --- | --- | --- | --- |
