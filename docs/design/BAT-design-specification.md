@@ -1,6 +1,6 @@
 # Basic’s Advanced Timer Design Specification
 
-**Version 1.20 · 22 November 2026 · Working specification**
+**Version 1.21 · 24 November 2026 · Working specification**
 
 BAT combines dependable time recording and timesheet review with a capable, searchable notes library. Accounts and reminders connect those workflows. Each workspace must remain useful independently, and the shared working-day timeline must keep recorded work and outstanding reminders understandable together.
 
@@ -82,6 +82,17 @@ This is an unresolved entry-point and discoverability issue, distinct from the u
 Opening BAT, Notes, a reminder or an editing surface must not inadvertently start, stop or reassign live recording. Remember the last workspace and its useful context.
 
 The exact pill arrangement, clock prominence and shortcut bindings remain design choices. Browser demonstrations do not establish global Windows shortcut behaviour.
+
+### Store-use observations and proposals to explore
+
+Feedback from continued use of the Store version on 24 November reinforces fast reminders as a core purpose and suggests the following refinements. These are design inputs for comparison, not approval of a new layout or timer behaviour.
+
+- **Inviting dashboard:** explore the timeline dashboard without a permanent account column, a cleaner bounded reminders area and useful visual previews of recent notes. Keep account identification, filtering and assignment available where needed; this proposal concerns the Timesheets landing page, not removal of account organisation from Notes. Recent-note previews should help someone recognise and reopen real content. A user who does not use Notes must still have a complete, useful dashboard.
+- **Clock and optional timer:** explore a current-time clock alongside an optional elapsed recording display. The user values visible awareness of passing time and a prompt to log it, while finding the existing timer controls clunky. Do not assume that displaying a clock starts recording, or that elapsed time is automatically attributed to an account. Retain live tracking for users who want it, but revisit its controls and compare clock-only versus clock-plus-timer presentation before choosing a default.
+- **Attached pill surfaces:** explore drawers or anchored extensions in place of the old pill's many detached popups. The intended character is a desktop gadget that expands and adapts to the task. Preserve draft content, exact time entry, focus return, monitor work-area fit and keyboard access as it expands or contracts. Keep urgent reminder capture short; larger writing can still use the full Notes surface. This is not a requirement to put every workflow inside the pill or to animate every transition; respect reduced motion.
+- **Precise reminder capture:** reaffirm direct access to a short reminder, account and specific time. Attaching capture to the pill must preserve its speed and precision, including the accepted hour/minute adjustment interaction. Opening Notes or the full dashboard must not become a prerequisite.
+
+**Smallest comparison to prototype:** a timeline-led landing page with a few recognisable recent-note previews and no permanent account column; a pill showing a clock with optional recording controls; and one attached reminder drawer. Compare these in a narrow work area and while another application has focus. Test capture, cancellation, switching to Quick note and return to the compact pill without lost drafts or a new mandatory setup step. Final controls, animation and attachment behaviour remain O09/O11 work.
 
 ## 5 Time entry and timeline interaction
 
@@ -325,6 +336,7 @@ Run scenarios against realistic sample data and, where relevant, compare the equ
 | Mixed work structure | Use eight accounts and five projects, including a three-week project set up as an ordinary account and optional Press Office/Campaign projects with separate codes beneath a retained account. Use an ordinary Agency time account for unrelated internal work and descriptions for client-specific administration. Hide the completed project without losing history. Include prospects and validate readable selection and handoff. |
 | Weekly handoff | Review a realistic week, correct a missing description and transfer entries into Float or an equivalent tracker. Map two prospects to one external code and reconcile the combined total with the individual blocks. Check a budget with its stated period. |
 | Reversal and continuity | Undo a mistaken time edit or reminder move while recording continues. Resize or switch workspaces mid-note and restore context, selection, filters and drafts. |
+| Clock and attached pill | Compare clock-only and clock-plus-recording views while adding time manually. Open an attached reminder drawer, choose a precise time, cancel and reopen it, switch explicitly to Quick note and return to the pill. Preserve drafts, focus and recording state; check keyboard access, reduced motion and narrow monitor work areas. |
 | Native desktop operation | Test global capture from another app/monitor, background timing, break/account controls, notifications and recovery after sleep/restart. Use the high-resolution laptop and 1080p/125 percent cases. |
 | Migration and recovery | Bring representative existing records across, preserve descriptions and links, reconcile hours, and recover a note after interrupted saving. |
 
@@ -403,5 +415,6 @@ These references inform navigation, search and writing patterns. Their full feat
 | 1.18 | 21 November 2026 | Added the running Windows production-frame slice and its [evidence](../experiments/windows-production-frame.md): independent capture, revision-acknowledged note/reminder persistence, Core clock, failure recovery and responsive writing. W01 remains in progress; development snapshot/restart behaviour does not settle production storage, planned-work or capture policies. |
 | 1.19 | 22 November 2026 | Added visible Quit actions in both surfaces after user feedback that exiting was undiscoverable. Window close buttons now quit; Minimise to pill remains explicit. Quit preserves the save/checkpoint gate and stays open on failure. |
 | 1.20 | 22 November 2026 | Superseded overlap rejection: retain overlapping work and count shared elapsed minutes once, split equally between accounts by default and editable later. Updated dashboard/time-flow references with union/account credit, separate overlap rows, direct Save, optional replacement and live continuation. Native credited-ledger integration and allocation override controls remain W02 work. |
+| 1.21 | 24 November 2026 | Recorded Store-use feedback: explore a timeline-led landing without a permanent account column, recent-note previews, clock/optional-timer presentation and attached pill drawers. Reaffirmed immediate precise reminder capture. Layout, timer redesign and gadget-like expansion remain proposals under O09/O11; live tracking and independent Notes workflows remain supported. |
 
 For future changes, update the affected requirement and its status, resolve or add the relevant open decision, revise the affected validation scenario and add a brief revision entry. If a prototype temporarily diverges, label the experiment and its intended test rather than silently changing the governing rule.

@@ -1,13 +1,24 @@
 {
   "project": "Basic's Advanced Timer reset",
-  "updated": "2026-11-22",
+  "updated": "2026-11-24",
   "canonicalSpecification": "docs/design/BAT-design-specification.md",
-  "specificationVersion": "1.20",
+  "specificationVersion": "1.21",
   "role": "Supporting discussion history. The canonical specification governs current design intent; prototype references do not establish implementation policy.",
   "referencePrototype": "bat-day-dashboard.html",
   "timeEntryPrototype": "bat-time-flow.html",
   "notesPrototype": "bat-notes-library.html",
   "decisions": [
+    {
+      "id": "store-use-dashboard-clock-and-attached-pill",
+      "status": "user_feedback_proposals_to_explore",
+      "date": "2026-11-24",
+      "context": "Observations while continuing to use the Store version; no new native or browser interaction is accepted by this feedback.",
+      "dashboard": "Explore a timeline-led landing without a permanent account column, a cleaner bounded reminder queue and recognisable visual recent-note previews. Preserve account context and independent Notes use.",
+      "timeDisplay": "Explore a current-time clock alongside optional elapsed recording. Time awareness can prompt manual logging. Retain live tracking but revisit clunky controls; clock display does not imply recording or automatic attribution.",
+      "pill": "Explore attached drawers/anchored extensions instead of many detached pill popups, creating an adaptable desktop gadget. Compare layout, focus, draft preservation, monitor limits, keyboard access and reduced motion.",
+      "confirmedPriority": "Very fast lightweight reminders assigned to specific times remain core; attached capture must not add a Notes or dashboard prerequisite.",
+      "nextComparison": "Compare the landing proposal, clock-only versus clock-plus-timer pill, and one attached precise reminder drawer. Final arrangement and behaviour remain O09/O11 work."
+    },
     {
       "id": "allowed-overlap-and-shared-credit",
       "status": "confirmed_default_override_controls_pending",
